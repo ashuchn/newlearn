@@ -54,7 +54,7 @@ class AuthController extends Controller
 
         Auth::attempt(['email' => $user->email, 'password' => $user->password]);
 
-        return route('dashboard')->with('success','Logged in successfully!');
+        return redirect()->route('dashboard')->with('success','Logged in successfully!');
     }
 
     public function dashboard()

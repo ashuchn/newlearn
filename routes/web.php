@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,3 +24,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 });
 Route::get('logout', [AuthController::class,'logout'])->name('logout');
+
+Route::group(['prefix' => 'admin'], function(){
+    Route::get('login', [AdminAuthController::class,'login'])->name('login');
+    Route::get('dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('users',[AdminAuthController::class, 'users'])->name('users.index');
+    Route::get('users/edit', [AdminAuthController::class, 'usersEdit'])->name('users.edit');
+});
