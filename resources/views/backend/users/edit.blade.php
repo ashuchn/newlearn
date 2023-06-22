@@ -1,7 +1,15 @@
 @extends('backend.layout.layout')
 @section('title', '| Edit User')
+
+@section('css')
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+@endsection
+
 @section('content')
     <div class="content-wrapper">
+      @if($errors->any())
+          {{ implode('', $errors->all('<div>:message</div>')) }}
+      @endif
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
@@ -129,8 +137,9 @@
 
 
                     <!-- SELECT2 EXAMPLE -->
-                    <form action="" method="post">
+                    <form action="{{ route('user.update', ['id' => $user->id]) }}" method="post">
                         @csrf
+                        @method('PUT')
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -154,6 +163,12 @@
                                         value="{{ $user->mobile }}">
                                 </div>
                             </div>
+                            {{-- <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Date Of Birth</label>
+                                    <input type="text" name="date_of_birth" id="datepicker" value="{{ $user->date_of_birth }}" class="form-control" placeholder="Date of Birth" required>
+                                </div>
+                            </div> --}}
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Gender</label>
@@ -167,8 +182,6 @@
                             </div>
 
                         </div>
-                        <input type="hidden" class="form-control" name="riding_charter_id" id="exampleInputEmail1"
-                            value="">
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Update</button>
@@ -181,4 +194,18 @@
             <!-- /.modal-dialog -->
         </div>
     </div>
+@endsection
+
+@section('script')
+<script>
+  $( function() {
+    $( "#datepicker" ).datepicker({
+      dateFormat: 'dd/mm/yy',
+      showButtonPanel: true,
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "-100:+0",
+    });
+  } );
+  </script>
 @endsection
