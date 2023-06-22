@@ -5,6 +5,7 @@ use App\Http\Controllers\User\QnaController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\QuestionAnswerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
