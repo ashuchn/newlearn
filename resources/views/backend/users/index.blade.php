@@ -1,13 +1,12 @@
 @extends('backend.layout.layout')
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
-    <link rel="stylesheet"
-        href="{{ url('assets/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ url('assets/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
 @endsection
 
 @section('content')
     <div class="content-wrapper">
-
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -33,9 +32,6 @@
                 </div>
             </div>
         @endif
-
-
-
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -43,14 +39,9 @@
 
 
                         <div class="card">
-                            {{-- <div class="card-header">
-                                <h3 class="card-title"><a href="{{ route('users.create') }}"><button
-                                            type="button" class="btn btn-block bg-gradient-primary">Add User
-                                        </button></a></h3>
-                            </div> --}}
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped table-responsive-sm">
+                                <table id="example" class="table table-bordered table-striped table-responsive-sm">
                                     <thead>
                                         <tr>
                                             <th>S.No</th>
@@ -69,7 +60,7 @@
                                                 <td>{{ $item->email }}</td>
                                                 <td>{{ $item->mobile }}</td>
                                                 <td>
-                                                    <a href="{{ route('users.edit') }}">
+                                                    <a href="{{ route('user.edit', ['id' => $item->id]) }}">
                                                         <button class="btn btn-primary">Edit</button>
                                                     </a>
                                                 </td>
@@ -95,7 +86,7 @@
     <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#example1').DataTable();
+            $('#example').DataTable();
         });
     </script>
 @endsection

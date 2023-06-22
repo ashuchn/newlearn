@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('gender')->after('password')->nullable(true);
-            $table->date('date_of_birth')->after('gender')->nullable(true);
+           $table->tinyInteger('role_id')->after('id')->nullable(false)->default(2); 
         });
     }
 
@@ -27,8 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('gender');
-            $table->dropColumn('date_of_birth');
-        });
+            $table->dropColumn('role_id');
+         });
     }
 };

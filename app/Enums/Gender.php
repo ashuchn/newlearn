@@ -15,4 +15,9 @@ class Gender {
     {
         return self::GENDER;
     }
+
+    public static function getGenderById($id)
+    {
+        return self::GENDER[$id];
+    }
 } 

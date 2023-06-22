@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\QnaController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,12 +27,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('qna', [QnaController::class, 'index'])->name('qna.index');
 
 });
-
 Route::get('logout', [AuthController::class,'logout'])->name('logout');
+
+/**
+ * admin routes
+ */
 
 Route::group(['prefix' => 'admin'], function(){
     Route::get('login', [AdminAuthController::class,'login'])->name('admin.login');
-    Route::get('dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('users',[AdminAuthController::class, 'users'])->name('users.index');
-    Route::get('users/edit', [AdminAuthController::class, 'usersEdit'])->name('users.edit');
+    Route::post('login/post', [AdminAuthController::class,'loginPost'])->name('admin.loginPost');
+    Route::middleware(['auth', 'checkUserRole'])->group(function () {
+        Route::get('dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('users',[UserController::class, 'index'])->name('users.index');
+        Route::get('user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+        Route::put('user/{id}/update', [UserController::class, 'update'])->name('user.update');
+    });
+    Route::get('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+    
 });

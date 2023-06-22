@@ -63,7 +63,7 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           
           <div class="info">
-            <a href="" class="d-block text-white">Welcome Shane</a>
+            <a href="" class="d-block text-white">Welcome Ashutosh</a>
           </div>
         </div>
   
@@ -83,6 +83,12 @@
                 <a href="{{ route('users.index') }}" class="nav-link text-white {{ Route::is('user.index') ? 'active' : '' }}">
                     <i class="nav-icon fa-regular fa-user"></i>
                     <p>User</p>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a href="{{ route('admin.logout') }}" class="nav-link text-white {{ Route::is('admin.logout') ? 'active' : '' }}">
+                    <i class="nav-icon fa-regular fa-user"></i>
+                    <p>Logout</p>
                 </a>
               </li>
            
