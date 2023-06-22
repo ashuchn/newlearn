@@ -12,8 +12,6 @@
 
 <!-- REQUIRED SCRIPTS -->
 
-<!-- jQuery -->
-<script src="{{url("assets/adminlte/plugins/jquery/jquery.min.js") }}'></script>
 <!-- Bootstrap 4 -->
 <script src="{{url("assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js") }}'></script>
 <!-- AdminLTE App -->
