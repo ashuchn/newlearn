@@ -15,4 +15,15 @@ class Answer extends Model
     protected $casts = [
         'is_correct' => 'boolean'
     ]; 
+
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
+
+    // Define the relationship with UserAnswer
+    public function userAnswers()
+    {
+        return $this->hasMany(UserAnswer::class);
+    }
 }

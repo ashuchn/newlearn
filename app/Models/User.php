@@ -43,4 +43,10 @@ class User extends AuthenticatableUser implements Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Define the relationship with UserResponse
+    public function userResponses()
+    {
+        return $this->hasMany(UserResponse::class);
+    }
 }

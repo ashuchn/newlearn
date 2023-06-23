@@ -86,6 +86,12 @@
                 </a>
               </li>
               <li class="nav-item ">
+                <a href="{{ route('quiz.index') }}" class="nav-link text-white {{ Route::is('quiz.index') ? 'active' : '' }}">
+                  <i class="fa-solid fa-pen-nib"></i>
+                  <p>Daily Quiz</p>
+                </a>
+              </li>
+              <li class="nav-item ">
                 <a href="{{ route('admin.logout') }}" class="nav-link text-white {{ Route::is('admin.logout') ? 'active' : '' }}">
                     <i class="nav-icon fa-regular fa-user"></i>
                     <p>Logout</p>

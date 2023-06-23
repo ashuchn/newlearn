@@ -22,4 +22,10 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class);
     }
+
+     // Define the relationship with UserAnswer
+     public function userAnswers()
+     {
+         return $this->hasMany(UserAnswer::class);
+     }
 }

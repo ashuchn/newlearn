@@ -26,7 +26,7 @@
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
                             </div>
-                            <a href="{{ route('qna.index') }}" class="small-box-footer">More info <i
+                            <a href="{{ route('user.quiz.index') }}" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i>
                             </a>
                         </div>
@@ -36,14 +36,12 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3><sup style="font-size: 20px"></sup></h3>
-
                                 <p>11 Niyam</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-stats-bars"></i>
                             </div>
-                            <a href="" class="small-box-footer">More info <i
+                            <a href="{{ route('user.quiz.index') }}" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -52,8 +50,6 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3></h3>
-
                                 <p>Tap</p>
                             </div>
                             <div class="icon">
@@ -68,8 +64,6 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3></h3>
-
                                 <p>Tapasaya</p>
                             </div>
                             <div class="icon">
