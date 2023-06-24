@@ -49,4 +49,10 @@ class User extends AuthenticatableUser implements Authenticatable
     {
         return $this->hasMany(UserResponse::class);
     }
+
+    // define the relationship with UserNiyam
+    public function niyams()
+    {
+        return $this->hasMany(UserNiyam::class);
+    }
 }

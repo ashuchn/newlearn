@@ -87,8 +87,14 @@
               </li>
               <li class="nav-item ">
                 <a href="{{ route('quiz.index') }}" class="nav-link text-white {{ Route::is('quiz.index') ? 'active' : '' }}">
-                  <i class="fa-solid fa-pen-nib"></i>
+                  <i class="fa-solid fa-regular fa-pen-nib"></i>
                   <p>Daily Quiz</p>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a href="{{ route('niyam.index') }}" class="nav-link text-white {{ Route::is('niyam.index') ? 'active' : '' }}">
+                    <i class="fa-solid fa-regular fa-hands-praying"></i>
+                    <p>Niyam</p>
                 </a>
               </li>
               <li class="nav-item ">

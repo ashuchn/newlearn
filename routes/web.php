@@ -3,9 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\QnaController;
 use App\Http\Controllers\User\AuthController;
-use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\niyamController;
 use App\Http\Controllers\Admin\QuestionAnswerController;
+use App\Http\Controllers\User\niyamController as UserNiyamController;
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +19,10 @@ use App\Http\Controllers\Admin\QuestionAnswerController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/time', function(){
+    // return \Carbon\Carbon::now()->toDateTimeString();
+    return \Carbon\Carbon::now()->toDateTimeString();
+});
 
 Route::get('/', [AuthController::class, 'loginView'])->name('login');
 
@@ -25,6 +32,8 @@ Route::post('register.post', [AuthController::class, 'register'])->name('registe
 
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+    
+    //quiz module
     Route::get('quizzes', [QnaController::class, 'index'])->name('user.quiz.index');
     Route::get('quiz/today', [QnaController::class, 'todayQuiz'])->name('user.todayQuiz');
         Route::middleware(['checkQuizIsPublished'])->group(function () {
@@ -32,6 +41,15 @@ Route::middleware(['auth'])->group(function () {
             Route::post('quiz/{id}/submit', [QnaController::class, 'submitQuiz'])->name('user.submitQuiz');
         });
     Route::get('quiz/{quizId}/result/{userResponseId?}', [QnaController::class, 'quizResult'])->name('quiz.result');        
+
+    // niyam module
+    Route::get('niyam', [UserNiyamController::class,'index'])->name('user.niyam.index');
+    Route::middleware(['checkNiyamSubmitted'])->group(function () {
+        Route::get('niyam/quiz', [UserNiyamController::class,'quiz'])->name('user.niyam.quiz');
+        Route::post('niyam/save',[UserNiyamController::class,'saveNiyam'])->name('user.saveNiyam');
+    });
+    Route::get('niyam/result/{submissionId}', [UserNiyamController::class,'generateResult'])->name('user.generateResult');
+    Route::get('niyam/submissions', [UserNiyamController::class,'submissions'])->name('user.niyam.pastSubmission');
 
 });
 Route::get('logout', [AuthController::class,'logout'])->name('logout');
@@ -62,6 +80,15 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('quiz/question/{questionId}', [QuestionAnswerController::class, 'quizQuestionDelete'])->name('quiz.questionDelete');
         Route::post('quiz/{quizId}/question/save',[QuestionAnswerController::class, 'quizSaveQuestionAnswer'])->name('quiz.saveQuestionAnswer');
         Route::post('quiz/changePublishStatus',[QuestionAnswerController::class, 'changePublishStatus'])->name('quiz.changeStatus');
+
+        //niyam module
+        Route::get('niyam',[niyamController::class, 'index'])->name('niyam.index');
+        Route::get('niyam/add',[niyamController::class, 'addNiyam'])->name('niyam.add');
+        Route::post('niyam/save', [niyamController::class, 'saveNiyam'])->name('niyam.save');
+        Route::get('niyam/{id}/delete', [niyamController::class, 'deleteNiyam'])->name('niyam.delete');
+        Route::get('niyam/submissions', [niyamController::class, 'submissions'])->name('admin.niyamSubmissions');
+        Route::get('niyam/result/{submissionId}', [niyamController::class, 'generateResult'])->name('admin.generateResult');
+
         
     });
     Route::get('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
