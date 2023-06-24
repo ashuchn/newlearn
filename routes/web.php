@@ -20,11 +20,11 @@ use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 |
 */
 Route::get('/time', function(){
-    // return \Carbon\Carbon::now()->toDateTimeString();
     return \Carbon\Carbon::now()->toDateTimeString();
 });
 
 Route::get('/', [AuthController::class, 'loginView'])->name('login');
+Route::middleware(['checkIfPaymentDone'])->group(function () {
 
 Route::post('login', [AuthController::class, 'login'])->name('login.post');
 Route::get('register', [AuthController::class, 'registerView'])->name('register');
@@ -92,5 +92,7 @@ Route::group(['prefix' => 'admin'], function(){
         
     });
     Route::get('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+    
+});
     
 });
