@@ -16,8 +16,8 @@ class AuthHelper {
     public static function register(array $request)
     {
 
-        $newDate = CarbonHelper::formatDate($request['date_of_birth'],'d/m/Y');
-        $user = new User;
+        $newDate                = CarbonHelper::formatDate($request['date_of_birth'],'d/m/Y');
+        $user                   = new User;
         $user->name             = $request['name'];
         $user->email            = $request['email'];
         $user->mobile           = $request['mobile'];

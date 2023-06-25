@@ -50,8 +50,7 @@ class AuthController extends Controller
     {
         $valid = Validator::make($request->all(),[
             "name"          =>  "required",
-            "email"         =>  "required|unique:users",
-            "mobile"        =>  "required|unique:users",
+            "email"         =>  "sometimes|unique:users",
             "password"      =>  "required|min:6",
             "date_of_birth" =>  "required|date_format:d/m/Y",
             "gender"        =>  ['required',Rule::in('1','2')]
@@ -62,7 +61,7 @@ class AuthController extends Controller
         }
 
         $user = AuthHelper::register($valid->validated());
-        if(Auth::attempt(['email' => $user->email, 'password' => $request->password])) {
+        if(Auth::attempt(['mobile' => $user->email, 'password' => $request->password])) {
             return redirect()->route('dashboard')->with('success','Logged in successfully!');
         } else {
             return back()->with('err_msg', 'user created! Error while login.');
