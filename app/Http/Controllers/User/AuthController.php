@@ -22,22 +22,37 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        // return $request;
         $valid = Validator::make($request->all(),[
-            "email"     => "required|exists:users",
+            "mobile"    => "required|exists:users",
             "password"  => "required"
         ], [
             'required' =>':attribute is required',
-            'email.exists' =>':attribute does not exist',
+            'mobile.exists' =>':attribute does not exist',
         ]);
+        
 
         if($valid->fails()) {
+            flash()->options([
+                'timeout' => 3000,
+                'position' => 'top-center',
+            ])->addError($valid->errors()->first());
             return back()->withErrors($valid)->withInput();
         }
 
-        if(Auth::attempt($valid->validated())) {
-            return redirect()->route('dashboard');
+        $validatedData = $valid->validated();
+        if(Auth::attempt(['mobile' => $validatedData['mobile'], 'password' => $validatedData['password'] ])) {
+            flash()->options([
+                'timeout' => 3000,
+                'position' => 'top-center',
+            ])->addSuccess('Logged in! Choose Account to continue');
+            return redirect()->route('accounts');
         }
-        return back()->with('err_msg','Invalid Credentials');
+        flash()->options([
+            'timeout' => 3000,
+            'position' => 'top-center',
+        ])->addError('Invalid Credentials');
+        return back();
     } 
 
     public function registerView()
@@ -50,8 +65,8 @@ class AuthController extends Controller
     {
         $valid = Validator::make($request->all(),[
             "name"          =>  "required",
-            "email"         =>  "required|unique:users",
-            "mobile"        =>  "required|unique:users",
+            "email"         =>  "sometimes|nullable|unique:users",
+            "mobile"        =>  "required",
             "password"      =>  "required|min:6",
             "date_of_birth" =>  "required|date_format:d/m/Y",
             "gender"        =>  ['required',Rule::in('1','2')]
@@ -62,8 +77,8 @@ class AuthController extends Controller
         }
 
         $user = AuthHelper::register($valid->validated());
-        if(Auth::attempt(['email' => $user->email, 'password' => $request->password])) {
-            return redirect()->route('dashboard')->with('success','Logged in successfully!');
+        if(Auth::attempt(['mobile' => $user->mobile, 'password' => $request->password])) {
+            return redirect()->route('accounts')->with('success','Logged in successfully!');
         } else {
             return back()->with('err_msg', 'user created! Error while login.');
         }
@@ -80,5 +95,41 @@ class AuthController extends Controller
         Auth::logout();
         \Session::flush();
         return redirect()->route('login');
+    }
+
+    public function accounts()
+    {
+        $mobile = Auth::user()->mobile;
+        $data = AuthHelper::accounts($mobile);
+        
+        if(!$data) {
+            flash()->options([
+                'timeout' => 3000,
+                'position' => 'top-center',
+            ])->addError('No Accounts linked!');
+        }
+        return view('frontend.auth.accounts', compact('data'));
+
+    }
+
+    public function accountLogin(Request $request)
+    {
+        $user = User::find($request->model);
+        // return Auth::loginUsingId($user->id);
+        // return Auth::attempt(['mobile' => $user->mobile, 'password' => $user->password]);
+        if(Auth::loginUsingId($user->id)) {
+            \Session::put('accountChoosen', true);
+            flash()->options([
+                'timeout' => 3000,
+                'position' => 'top-center',
+            ])->addSuccess('Logged In!');
+            return redirect()->route('dashboard');
+        } else {
+            flash()->options([
+                'timeout' => 3000,
+                'position' => 'top-center',
+            ])->addError('Some Error Occured!');
+            return back();
+        }
     }
 }  

@@ -16,7 +16,7 @@ class checkIfPaymentDone
      */
     public function handle(Request $request, Closure $next)
     {
-        $payment = false;
+        $payment = true;
         if(!$payment) {
             return redirect()->route('login')->with('error','Payment not initiated');
         }
