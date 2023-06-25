@@ -31,7 +31,7 @@ class User extends AuthenticatableUser implements Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        // 'password',
         'remember_token',
     ];
 
@@ -54,5 +54,10 @@ class User extends AuthenticatableUser implements Authenticatable
     public function niyams()
     {
         return $this->hasMany(UserNiyam::class);
+    }
+
+    public function mobile()
+    {
+        return $this->belongsTo(UserMobile::class);
     }
 }

@@ -158,7 +158,7 @@
         <div class="form-group">
             <label for="email">Email</label>
             <div class="input-group">
-                <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" placeholder="Email" required>
+                <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" placeholder="Email">
                 <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-envelope"></span>
@@ -235,14 +235,14 @@
             @enderror
         </div>
     
-        <div class="form-group">
+        {{-- <div class="form-group">
             <div class="icheck-primary">
                 <input type="checkbox" id="agreeTerms" name="terms" value="agree" required>
                 <label for="agreeTerms">
                     I agree to the <a href="#">terms</a>
                 </label>
             </div>
-        </div>
+        </div> --}}
     
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Register</button>

@@ -4,7 +4,9 @@ namespace App\Helpers;
 
 use Hash;
 use App\Models\User;
+use App\Models\UserMobile;
 use App\Helpers\CarbonHelper;
+use Illuminate\Database\Eloquent\Collection;
 
 class AuthHelper {
 
@@ -26,8 +28,19 @@ class AuthHelper {
         $user->password         = Hash::make($request['password']);
         $user->save();
 
-        return $user;
+        UserMobile::create([
+            "mobile"    => $request['mobile'],
+            "user_id"   => $user->id
+        ]);
 
+        return $user;
+    }
+
+    public static function accounts(string $mobile): Collection
+    {
+        $data = UserMobile::where('mobile', $mobile)->pluck('user_id');
+        $users = User::whereIn('id', $data)->get();
+        return $users;
     }
 
 }

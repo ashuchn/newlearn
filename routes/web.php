@@ -23,6 +23,10 @@ Route::get('/time', function(){
     return \Carbon\Carbon::now()->toDateTimeString();
 });
 
+Route::get('sessions', function (){
+    return \Session::all();
+});
+
 Route::get('/', [AuthController::class, 'loginView'])->name('login');
 Route::middleware(['checkIfPaymentDone'])->group(function () {
 
@@ -31,26 +35,29 @@ Route::get('register', [AuthController::class, 'registerView'])->name('register'
 Route::post('register.post', [AuthController::class, 'register'])->name('register.post');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
-    
-    //quiz module
-    Route::get('quizzes', [QnaController::class, 'index'])->name('user.quiz.index');
-    Route::get('quiz/today', [QnaController::class, 'todayQuiz'])->name('user.todayQuiz');
-        Route::middleware(['checkQuizIsPublished'])->group(function () {
-            Route::get('quiz/{id}/take', [QnaController::class, 'takeQuiz'])->name('user.takeQuiz');
-            Route::post('quiz/{id}/submit', [QnaController::class, 'submitQuiz'])->name('user.submitQuiz');
+    Route::get('accounts', [AuthController::class, 'accounts'])->name('accounts');
+    Route::post('account/login', [AuthController::class, 'accountLogin'])->name('account.login');
+    Route::middleware(['checkAccountIsChoosen'])->group(function () {
+        Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+        
+        //quiz module
+        Route::get('quizzes', [QnaController::class, 'index'])->name('user.quiz.index');
+        Route::get('quiz/today', [QnaController::class, 'todayQuiz'])->name('user.todayQuiz');
+            Route::middleware(['checkQuizIsPublished'])->group(function () {
+                Route::get('quiz/{id}/take', [QnaController::class, 'takeQuiz'])->name('user.takeQuiz');
+                Route::post('quiz/{id}/submit', [QnaController::class, 'submitQuiz'])->name('user.submitQuiz');
+            });
+        Route::get('quiz/{quizId}/result/{userResponseId?}', [QnaController::class, 'quizResult'])->name('quiz.result');        
+
+        // niyam module
+        Route::get('niyam', [UserNiyamController::class,'index'])->name('user.niyam.index');
+        Route::middleware(['checkNiyamSubmitted'])->group(function () {
+            Route::get('niyam/quiz', [UserNiyamController::class,'quiz'])->name('user.niyam.quiz');
+            Route::post('niyam/save',[UserNiyamController::class,'saveNiyam'])->name('user.saveNiyam');
         });
-    Route::get('quiz/{quizId}/result/{userResponseId?}', [QnaController::class, 'quizResult'])->name('quiz.result');        
-
-    // niyam module
-    Route::get('niyam', [UserNiyamController::class,'index'])->name('user.niyam.index');
-    Route::middleware(['checkNiyamSubmitted'])->group(function () {
-        Route::get('niyam/quiz', [UserNiyamController::class,'quiz'])->name('user.niyam.quiz');
-        Route::post('niyam/save',[UserNiyamController::class,'saveNiyam'])->name('user.saveNiyam');
+        Route::get('niyam/result/{submissionId}', [UserNiyamController::class,'generateResult'])->name('user.generateResult');
+        Route::get('niyam/submissions', [UserNiyamController::class,'submissions'])->name('user.niyam.pastSubmission');
     });
-    Route::get('niyam/result/{submissionId}', [UserNiyamController::class,'generateResult'])->name('user.generateResult');
-    Route::get('niyam/submissions', [UserNiyamController::class,'submissions'])->name('user.niyam.pastSubmission');
-
 });
 Route::get('logout', [AuthController::class,'logout'])->name('logout');
 
