@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
         
         //quiz module
         Route::get('quizzes', [QnaController::class, 'index'])->name('user.quiz.index');
+        Route::get('quiz/pastSubmissions', [QnaController::class, 'pastSubmissions'])->name('user.quiz.pastSubmissions');
         Route::get('quiz/today', [QnaController::class, 'todayQuiz'])->name('user.todayQuiz');
             Route::middleware(['checkQuizIsPublished'])->group(function () {
                 Route::get('quiz/{id}/take', [QnaController::class, 'takeQuiz'])->name('user.takeQuiz');

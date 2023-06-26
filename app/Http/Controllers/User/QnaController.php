@@ -7,8 +7,8 @@ use App\Models\Answer;
 use App\Models\Question;
 use App\Models\UserAnswer;
 use App\Models\UserResponse;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
 class QnaController extends Controller
@@ -22,7 +22,6 @@ class QnaController extends Controller
     public function todayQuiz()
     {
         $data = Quiz::where('start_date', date('Y-m-d'))->get();
-        // return $data;
         foreach ($data as $quiz) {
             $quiz->hasUserGivenQuiz = $quiz->hasUserGivenQuiz;
         }
@@ -91,6 +90,12 @@ class QnaController extends Controller
 
         $totalMarks = $correctAnswers * $perAnswerMarks;
         return view('frontend.quiz.result', compact('totalMarks','totalQuestions','incorrectAnswers','correctAnswers','userResponseId','quiz'));
+    }
+
+    public function pastSubmissions()
+    {
+        $data = UserResponse::where('user_id', Auth::id())->with('quiz')->get();
+        return view('frontend.quiz.pastSubmissions', compact('data'));
     }
 
 

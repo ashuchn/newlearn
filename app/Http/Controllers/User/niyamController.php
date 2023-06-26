@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Auth;
 use App\Models\Niyam;
 use App\Models\UserNiyam;
 use App\Helpers\niyamHelper;
@@ -19,7 +20,9 @@ class niyamController extends Controller
     public function quiz()
     {
         $data = Niyam::all();
-        // return $data;
+        if(count($data) == 0){
+            return redirect()->route('user.niyam.index')->with('error','No niyams published yet!');
+        }
         return view('frontend.niyam.quiz', compact('data'));
     }
 
@@ -52,7 +55,7 @@ class niyamController extends Controller
 
     public function submissions()
     {
-        $data = niyamHelper::getSubmissions();
+        $data = niyamHelper::getSubmissions(Auth::id());
         return view('frontend.niyam.submissions', compact('data'));
     }
 }

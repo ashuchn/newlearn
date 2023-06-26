@@ -53,9 +53,9 @@ class niyamHelper {
         }
     }
 
-    public static function getSubmissions()
+    public static function getSubmissions(int $userId)
     {
-        $data = UserNiyam::with('user')->get();
+        $data = UserNiyam::where('user_id', $userId)->with('user')->get();
         return $data;
     }
 
