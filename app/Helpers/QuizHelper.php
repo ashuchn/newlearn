@@ -40,7 +40,7 @@ class QuizHelper {
         }
     }
 
-    public static function changePublishStatus($data): jsonResponse
+    public static function changePublishStatus($request)
     {
         $update = Quiz::where('id', $request->itemId)
             ->update([
