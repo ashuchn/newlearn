@@ -6,6 +6,7 @@ use Hash;
 use Validator;
 use App\Models\User;
 use App\Enums\Gender;
+use App\Models\State;
 use App\Helpers\AuthHelper;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -58,7 +59,8 @@ class AuthController extends Controller
     public function registerView()
     {
         $gender = Gender::getGenders();
-        return view('frontend.auth.register', compact('gender'));
+        $states = State::all();
+        return view('frontend.auth.register', compact('gender','states'));
     }
 
     public function register(Request $request)
@@ -68,11 +70,14 @@ class AuthController extends Controller
             "email"         =>  "sometimes|nullable|unique:users",
             "mobile"        =>  "required",
             "password"      =>  "required|min:6",
+            "state_id"      =>  "required",
+            "city"          => "required",
             "date_of_birth" =>  "required|date_format:d/m/Y",
             "gender"        =>  ['required',Rule::in('1','2')]
         ]);
 
         if($valid->fails()) {
+            flash()->addError($valid->errors()->first());
             return back()->withErrors($valid)->withInput();
         }
 

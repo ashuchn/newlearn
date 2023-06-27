@@ -21,7 +21,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>User Login</b></a>
+    <a href="#"><b>आराधक लॉग इन</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -115,7 +115,7 @@
     </form>
     
       <p class="mb-0">
-        <a href="{{ route('register') }}" class="text-center">Register a new Membership</a>
+        <a href="{{ route('register') }}" class="text-center">आराधक पंजीकरण </a>
       </p>
 
      

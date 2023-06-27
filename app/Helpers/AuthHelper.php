@@ -26,6 +26,8 @@ class AuthHelper {
         $user->date_of_birth    = $newDate;
         $user->gender           = $request['gender'];
         $user->password         = Hash::make($request['password']);
+        $user->state_id         = $request['state_id'];
+        $user->city             = $request['city'];
         $user->save();
 
         UserMobile::create([

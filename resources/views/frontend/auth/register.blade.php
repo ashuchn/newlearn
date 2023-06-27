@@ -34,128 +34,32 @@
 
 </head>
 <body class="hold-transition register-page">
-<div class="register-box">
+<div class="d-flex justify-content-center mt-4">
   <div class="card card-outline card-primary">
-    @php
-      if(Session::has('err_msg')){
-        Session::get('err_msg');
-      }
-    @endphp
     <div class="card-header text-center">
-      <b>Registration</b>
+      <b>Register a new membership</b>
     </div>
     <div class="card-body">
-      <p class="login-box-msg">Register a new membership</p>
-
-      {{-- <form action="{{ route('register.post') }}" method="post">
-        @csrf
-        <div class="form-group">
-          <div class="input-group mb-3">
-            <input type="text" name="name" class="form-control" placeholder="Full name">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-user"></span>
-              </div>
-            </div>
-          </div>
-          @error('name')
-            <span class="text-danger">{{ $message }}</span>
-          @enderror
-        </div>
-        
-        <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control" placeholder="Email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        @error('email')
-            <span class="text-danger">{{ $message }}</span>
-        @enderror
-        <div class="input-group mb-3">
-          <input type="text" name="mobile" class="form-control" placeholder="Mobile">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-phone"></span>
-            </div>
-          </div>
-        </div>
-        @error('mobile')
-            <span class="text-danger">{{ $message }}</span>
-        @enderror
-        <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        @error('password')
-            <span class="text-danger">{{ $message }}</span>
-        @enderror
-        <div class="input-group mb-3">
-          <input type="text" id="datepicker" name="date_of_birth" class="form-control" placeholder="Date of Birth">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-calendar"></span>
-            </div>
-          </div>
-        </div>
-        @error('date_of_birth')
-            <span class="text-danger">{{ $message }}</span>
-        @enderror
-        <div class="input-group mb-3">
-          <select name="" id="" class="form-control">
-            <option value="">Choose Gender</option>
-            <option value="1">Male</option>
-            <option value="2">Female</option>
-          </select>
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-mars-double"></span>
-            </div>
-          </div>
-        </div>
-        @error('gender')
-            <span class="text-danger">{{ $message }}</span>
-        @enderror
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-              <label for="agreeTerms">
-               I agree to the <a href="#">terms</a>
-              </label>
-            </div>
-          </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form> --}}
+      <p class="login-box-msg text-danger">Asterisk(*) marked field are mandatory</p>
       <form action="{{ route('register.post') }}" method="post">
         @csrf
-        <div class="form-group">
-            <label for="name">Full name</label>
-            <div class="input-group">
-                <input type="text" name="name" id="name" class="form-control" placeholder="Full name" value="{{ old('name') }}" required>
-                <div class="input-group-append">
-                    <div class="input-group-text">
-                        <span class="fas fa-user"></span>
+        
+        <div class="form-group row">
+          <div class="col-md-6">
+                <label for="name">Full name <span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Full name" value="{{ old('name') }}" required>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            @error('name')
-            <span class="text-danger">{{ $message }}</span>
-            @enderror
-        </div>
-    
-        <div class="form-group">
+                @error('name')
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
+          </div>
+          <div class="col-md-6">
             <label for="email">Email</label>
             <div class="input-group">
                 <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" placeholder="Email">
@@ -168,40 +72,79 @@
             @error('email')
             <span class="text-danger">{{ $message }}</span>
             @enderror
+          </div>            
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+              <label for="mobile">Mobile <span class="text-danger">*</span></label>
+              <div class="input-group">
+                  <input type="text" name="mobile" id="mobile" class="form-control" value="{{ old('mobile') }}" placeholder="Mobile" required>
+                  <div class="input-group-append">
+                      <div class="input-group-text">
+                          <span class="fas fa-phone"></span>
+                      </div>
+                  </div>
+              </div>
+              @error('mobile')
+              <span class="text-danger">{{ $message }}</span>
+              @enderror
+            </div>
+            <div class="col-md-6">
+              <label for="password">Password <span class="text-danger">*</span></label>
+              <div class="input-group">
+                  <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                  <div class="input-group-append">
+                      <div class="input-group-text">
+                          <span class="fas fa-lock"></span>
+                      </div>
+                  </div>
+              </div>
+              @error('password')
+              <span class="text-danger">{{ $message }}</span>
+              @enderror
+            </div>
         </div>
     
-        <div class="form-group">
-            <label for="mobile">Mobile</label>
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label for="state">State: <span class="text-danger">*</span></label>
             <div class="input-group">
-                <input type="text" name="mobile" id="mobile" class="form-control" value="{{ old('mobile') }}" placeholder="Mobile" required>
+                <select name="state_id" class="form-control" id="state" required>
+                  <option value="">Choose State</option>
+                  @foreach($states as $state)
+                    <option value="{{ $state->id }}">{{ $state->name }}</option>
+                  @endforeach
+                </select>
                 <div class="input-group-append">
                     <div class="input-group-text">
-                        <span class="fas fa-phone"></span>
+                      <i class="fa-sharp fa-light fa-location-crosshairs"></i>
                     </div>
                 </div>
             </div>
-            @error('mobile')
+            @error('state_id')
             <span class="text-danger">{{ $message }}</span>
             @enderror
-        </div>
-    
-        <div class="form-group">
-            <label for="password">Password</label>
+          </div>
+          <div class="col-md-6">
+            <label for="city">City: <span class="text-danger">*</span></label>
             <div class="input-group">
-                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+              <input type="text" name="city" id="" value="{{ old('city') }}" class="form-control" placeholder="City" required>
                 <div class="input-group-append">
                     <div class="input-group-text">
-                        <span class="fas fa-lock"></span>
+                      <i class="fa-thin fa-location-pin"></i>
                     </div>
                 </div>
             </div>
-            @error('password')
+            @error('city')
             <span class="text-danger">{{ $message }}</span>
             @enderror
+          </div>
         </div>
-    
-        <div class="form-group">
-            <label for="datepicker">Date of Birth</label>
+
+        <div class="form-group row">
+          <div class="col-md-6">
+            <label for="datepicker">Date of Birth <span class="text-danger">*</span></label>
             <div class="input-group">
                 <input type="text" name="date_of_birth" id="datepicker" value="{{ old('date_of_birth') }}" class="form-control" placeholder="Date of Birth" required>
                 <div class="input-group-append">
@@ -213,10 +156,9 @@
             @error('date_of_birth')
             <span class="text-danger">{{ $message }}</span>
             @enderror
-        </div>
-    
-        <div class="form-group">
-            <label for="gender">Gender</label>
+          </div>
+            <div class="col-md-6">
+              <label for="gender">Gender <span class="text-danger">*</span></label>
             <div class="input-group">
                 <select name="gender" class="form-control" required>
                     <option value="">Choose Gender</option>
@@ -233,17 +175,9 @@
             @error('gender')
             <span class="text-danger">{{ $message }}</span>
             @enderror
-        </div>
-    
-        {{-- <div class="form-group">
-            <div class="icheck-primary">
-                <input type="checkbox" id="agreeTerms" name="terms" value="agree" required>
-                <label for="agreeTerms">
-                    I agree to the <a href="#">terms</a>
-                </label>
             </div>
-        </div> --}}
-    
+        </div>
+
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Register</button>
         </div>
