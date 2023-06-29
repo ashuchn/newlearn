@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <div class="row mb-3">
                     <div class="col-sm-6">
-                        <h1>Welcome, Admin!</h1>
+                        <h1>जय जिनेन्द्र, Admin!</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">

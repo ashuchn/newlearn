@@ -4,9 +4,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="shortcut icon" href="{{ url('public/website_logo.png') }}" type="image/x-icon">
-  <title>Website @yield('title')</title>
+  <title>सहजानंदी @yield('title')</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{{ url('public/images/favicon.ico') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ url('public/images/favicon.ico') }}" type="image/x-icon">
   <!-- Google Font: Source Sans Pro -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -3,9 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>User Login</title>
+  <title>सहजानंदी User Login</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{{ url('public/images/favicon.ico') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ url('public/images/favicon.ico') }}" type="image/x-icon">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{url('assets/adminlte/plugins/fontawesome-free/css/all.min.css')}}">

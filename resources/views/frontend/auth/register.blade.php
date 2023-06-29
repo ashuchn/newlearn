@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Register</title>
+  <title>सहजानंदी Register</title>
+  <link rel="icon" href="{{ url('public/images/favicon.ico') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ url('public/images/favicon.ico') }}" type="image/x-icon">
 <!-- Font Awesome -->
 <link rel="stylesheet" href="{{url('assets/adminlte/plugins/fontawesome-free/css/all.min.css')}}">
 <!-- Ionicons -->

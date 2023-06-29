@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Validator;
 use App\Models\User;
+use App\Models\ContactUs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
@@ -47,5 +48,42 @@ class AuthController extends Controller
     public function dashboard()
     {
         return view('backend.dashboard');
+    }
+
+    public function contactUs()
+    {
+        return view('frontend.contactUs');
+    }
+
+    public function showContactUs()
+    {
+        $data = ContactUs::first();
+        return view('backend.contactUs.index', compact('data'));
+    }
+
+    public function updateContactUs(Request $request)
+    {
+        $valid = Validator::make($request->all(),[
+            'contact_person_name' => 'required',
+            'email' => 'required|email',
+            'mobile_number' => 'required'
+        ]);
+
+        if($valid->fails()) {
+            flash()->addError($valid->errors()->first());
+            return back();
+        }
+        
+        $update = ContactUs::find(1);
+        $update->contact_person_name = $request->contact_person_name;
+        $update->email = $request->email;
+        $update->mobile_number = $request->mobile_number;
+        if($update->update()) {
+            return redirect()->route('admin.contactUs')->withSuccess('Details Updated!');
+        } else {
+            return redirect()->route('admin.contactUs')->withError('Some error occured!');
+        }
+        
+
     }
 }

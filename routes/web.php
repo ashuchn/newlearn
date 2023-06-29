@@ -27,7 +27,7 @@ Route::get('/time', function(){
 Route::get('sessions', function (){
     return \Session::all();
 });
-
+Route::get('contact-us',[AdminAuthController::class, 'contactUs'])->name('contact-us');
 Route::get('/', [AuthController::class, 'loginView'])->name('login');
 Route::middleware(['checkIfPaymentDone'])->group(function () {
 
@@ -102,6 +102,10 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('niyam/{id}/delete', [niyamController::class, 'deleteNiyam'])->name('niyam.delete');
         Route::get('niyam/submissions', [niyamController::class, 'submissions'])->name('admin.niyamSubmissions');
         Route::get('niyam/result/{submissionId}', [niyamController::class, 'generateResult'])->name('admin.generateResult');
+
+        //contact us module
+        Route::get('setting/contact-us', [AdminAuthController::class, 'showContactUs'])->name('admin.contactUs');
+        Route::post('setting/update/contact-us', [AdminAuthController::class, 'updateContactUs'])->name('admin.contactus.update');
 
         
     });
