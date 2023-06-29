@@ -52,7 +52,7 @@
                     </div>
                     <!-- ./col -->
                     <div class="col-lg-3 col-md-6 col-sm-12">
-                        <a href="" class="small-box-footer">
+                        <a href="{{ route('tapasaya.index') }}" class="small-box-footer">
                             <div class="info-box bg-gradient-danger">
                                 <span class="info-box-icon"><i class="fa-solid fa-bell-slash"></i></span>
                                 <div class="info-box-content">

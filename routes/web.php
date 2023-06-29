@@ -5,6 +5,7 @@ use App\Http\Controllers\User\QnaController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\niyamController;
+use App\Http\Controllers\User\TapasayaController;
 use App\Http\Controllers\Admin\QuestionAnswerController;
 use App\Http\Controllers\User\niyamController as UserNiyamController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
@@ -58,6 +59,10 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::get('niyam/result/{submissionId}', [UserNiyamController::class,'generateResult'])->name('user.generateResult');
         Route::get('niyam/submissions', [UserNiyamController::class,'submissions'])->name('user.niyam.pastSubmission');
+
+        // tapasaya module
+        Route::get('tapasaya', [TapasayaController::class, 'index'])->name('tapasaya.index');
+        Route::get('download/tapvidhi', [TapasayaController::class, 'downloadTapvidhi'])->name('download.tap_vidhi');
     });
 });
 Route::get('logout', [AuthController::class,'logout'])->name('logout');
@@ -88,6 +93,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('quiz/question/{questionId}', [QuestionAnswerController::class, 'quizQuestionDelete'])->name('quiz.questionDelete');
         Route::post('quiz/{quizId}/question/save',[QuestionAnswerController::class, 'quizSaveQuestionAnswer'])->name('quiz.saveQuestionAnswer');
         Route::post('quiz/changePublishStatus',[QuestionAnswerController::class, 'changePublishStatus'])->name('quiz.changeStatus');
+        Route::get('quiz/{quizId}/generateReport',[QuestionAnswerController::class,'generateReport'])->name('quiz.generateReport');
 
         //niyam module
         Route::get('niyam',[niyamController::class, 'index'])->name('niyam.index');

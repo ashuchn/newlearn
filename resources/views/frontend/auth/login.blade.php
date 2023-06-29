@@ -21,7 +21,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>आराधक लॉग इन</b></a>
+    <img src="{{ url('public/images/login_logo.png') }}" class="img-thumbnail" alt="login logo">
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -29,6 +29,9 @@
         @if (session()->has('err_msg'))
             <span class="text-danger">{{ session()->get('err_msg') }}</span>
         @endif
+        <div class="login-logo">
+          <a href="#"><b>आराधक लॉग इन</b></a>
+        </div>
       <p class="login-box-msg">Sign in to start your session</p>
 
       {{-- <form action="{{ route('login.post') }}" method="post">

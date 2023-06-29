@@ -138,4 +138,11 @@ class QuestionAnswerController extends Controller
         return view('backend.quiz.result', compact('data'));
     }
 
+    public function generateReport($quizId)
+    {
+        $data = QuizHelper::generateReport($quizId);
+        return $data;
+        return view('backend.quiz.report', compact('data'));
+    }
+
 }

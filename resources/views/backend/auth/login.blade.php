@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>User Login</title>
+  <title>Admin Login</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <link rel="icon" href="{{ url('public/images/favicon.ico') }}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ url('public/images/favicon.ico') }}" type="image/x-icon">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{url('assets/adminlte/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Ionicons -->
@@ -21,15 +22,19 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Admin Login</b></a>
+    <img src="{{ url('public/images/login_logo.png') }}" class="img-thumbnail" alt="login logo">
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
         @if (session()->has('err_msg'))
             <span class="text-danger">{{ session()->get('err_msg') }}</span>
-        @endif
-      <p class="login-box-msg">Sign in to start your session</p>
+        @endif  
+        <p class="login-box-msg">
+          Sign in to start your session
+          <br>
+          <b>Admin Login</b>
+      </p>
 
       <form action="{{ route('admin.loginPost') }}" method="post">
         <label for="email">Email</label>

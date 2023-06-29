@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Quiz;
+use App\Models\User;
 use App\Models\Answer;
 use App\Models\Question;
 use App\Models\UserAnswer;
@@ -40,11 +41,11 @@ class QuizHelper {
         }
     }
 
-    public static function changePublishStatus($data): jsonResponse
+    public static function changePublishStatus($data)
     {
-        $update = Quiz::where('id', $request->itemId)
+        $update = Quiz::where('id', $data->itemId)
             ->update([
-                'is_published' => $request->switchState
+                'is_published' => $data->switchState
             ]);
             if($update) {
                 return response()->json([
@@ -102,7 +103,47 @@ class QuizHelper {
             'userResponse'      =>$userResponse,
             'quiz'              =>$quiz
         ];
-        // return view('backend.quiz.result', compact('totalMarks','totalQuestions','incorrectAnswers','correctAnswers','userResponseId','quiz'));
+    }
+
+    public static function generateReport(int $quizId)
+    {
+        $totalQuestions     = Question::where('quiz_id', $quizId)->count();
+        $userResponses      = UserResponse::where([
+            ['quiz_id', $quizId]
+        ])->get();
+        $usersReport = array();
+        $totalMarks = 0;
+        foreach($userResponses as $userResponse) {
+            $userId = $userResponse->user_id;
+            $correctAnswers     = 0;
+            $incorrectAnswers   = 0;
+            $perAnswerMarks     = 5;
+            $submittedAnswers   = UserAnswer::where('user_response_id', $userResponse->id)->pluck('answer_id');
+            foreach($submittedAnswers as $answer) {
+                $isCorrect = Answer::where('id', $answer)->where('is_correct', 1)->exists();
+                if ($isCorrect) {
+                    $correctAnswers++;
+                } else {
+                    $incorrectAnswers++;
+                }
+                $totalMarks = $correctAnswers * $perAnswerMarks;
+            }
+            array_push($usersReport, ['totalMarks' => $totalMarks,'userId' => $userId ]);
+        }
+        $collection = collect($usersReport);
+        // $sortBy = 'totalMarks';
+        // $sorted = $collection->sortByDesc($sortBy);
+        $userIds = $collection->pluck('userId')->toArray(); // Get unique user ids from the sorted collection
+        // Fetch the usernames for the corresponding user ids
+        $usernames = User::whereIn('id', $userIds)->pluck('name', 'id');
+
+        // Iterate over the sorted collection and relate userId with username
+        $collection->transform(function ($item) use ($usernames) {
+            $item['username'] = $usernames[$item['userId']] ?? null;
+            return $item;
+        });
+
+        return $collection;
     }
 
 }

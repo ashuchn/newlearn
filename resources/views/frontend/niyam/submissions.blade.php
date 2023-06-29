@@ -29,6 +29,11 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
+                            <div class="card-header">
+                                <a href="{{ route('user.niyam.index') }}">
+                                    <button class="btn btn-primary">Go Back</button>
+                                </a>
+                            </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
