@@ -63,6 +63,14 @@ Route::middleware(['auth'])->group(function () {
         // tapasaya module
         Route::get('tapasaya', [TapasayaController::class, 'index'])->name('tapasaya.index');
         Route::get('download/tapvidhi', [TapasayaController::class, 'downloadTapvidhi'])->name('download.tap_vidhi');
+        Route::get('download/gandhar', [TapasayaController::class, 'downloadGandhar'])->name('download.gandhar');
+        Route::get('download/sthanak', [TapasayaController::class, 'downloadSthanak'])->name('download.sthanak');
+        Route::get('download/aagam', [TapasayaController::class, 'downloadAagam'])->name('download.aagam');
+        Route::get('download/chaturvinshati', [TapasayaController::class, 'downloadChaturvinshati'])->name('download.Chaturvinshati');
+        Route::get('download/Dharma', [TapasayaController::class, 'downloadDharma'])->name('download.Dharma');
+        Route::get('download/Moksh', [TapasayaController::class, 'downloadMoksh'])->name('download.Moksh');
+        Route::get('download/Shrani', [TapasayaController::class, 'downloadShrani'])->name('download.Shrani');
+        Route::get('download/Siddhi', [TapasayaController::class, 'downloadSiddhi'])->name('download.Siddhi');
     });
 });
 Route::get('logout', [AuthController::class,'logout'])->name('logout');
