@@ -103,6 +103,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('niyam/{id}/delete', [niyamController::class, 'deleteNiyam'])->name('niyam.delete');
         Route::get('niyam/submissions', [niyamController::class, 'submissions'])->name('admin.niyamSubmissions');
         Route::get('niyam/result/{submissionId}', [niyamController::class, 'generateResult'])->name('admin.generateResult');
+        Route::get('niyam/generateOverallResult', [niyamController::class, 'generateOverallResult'])->name('admin.niyam.generateResult');
 
         //contact us module
         Route::get('setting/contact-us', [AdminAuthController::class, 'showContactUs'])->name('admin.contactUs');

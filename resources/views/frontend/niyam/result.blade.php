@@ -27,6 +27,33 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50%">Total Marks</th>
+                                            <th style="width: 50%">Marks Obtained</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                {{ $totalMarks }}
+                                            </td>
+                                            <td>
+                                                {{ $obtainedMarks }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-12">
 
 
@@ -44,8 +71,8 @@
                                             <tbody>
                                                     @foreach ($data as $item)
                                                         <tr>
-                                                            <td>{{ $item['niyam']->niyam_name }}</td>
-                                                            <td>
+                                                            <td style="width: 50%">{{ $item['niyam']->niyam_name }}</td>
+                                                            <td style="width: 50%">
                                                                 <div class="form-group">
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"

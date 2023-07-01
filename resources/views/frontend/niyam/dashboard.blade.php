@@ -36,23 +36,26 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="info-box bg-gradient-warning">
-                                    <span class="info-box-icon"><i class="far fa-copy"></i></span>
-                                    <div class="info-box-content">
-                                      <span class="info-box-text">Past Submissions</span>
-                                      <span class="info-box-number"><a href="{{ route('user.niyam.pastSubmission') }}" class="text-white">View</a></span>
+                                <a href="{{ route('user.niyam.pastSubmission') }}" class="text-white">
+                                    <div class="info-box bg-gradient-warning">
+                                        <span class="info-box-icon"><i class="far fa-copy"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Past Submissions</span>
+                                            <span class="info-box-number"></span>
+                                        </div>
                                     </div>
-                                  </div>
-                                  
+                                </a>    
                             </div>
                             <div class="col-md-4">
-                                <div class="info-box bg-gradient-info">
-                                    <span class="info-box-icon"><i class="far fa-question"></i></span>
-                                    <div class="info-box-content">
-                                      <span class="info-box-text">Today's Niyam`s</span>
-                                      <span class="info-box-number"><a href="{{ route('user.niyam.quiz') }}" class="text-white">Take Niyam Quiz</a></span>
+                                <a href="{{ route('user.niyam.quiz') }}" class="text-white">
+                                    <div class="info-box bg-gradient-info">
+                                        <span class="info-box-icon"><i class="far fa-question"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Today's Niyam`s</span>
+                                            <span class="info-box-number"></span>
+                                        </div>
                                     </div>
-                                  </div>
+                                </a>
                             </div>
                         </div>
                         

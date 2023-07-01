@@ -216,11 +216,11 @@ class QuizHelper {
     }
     
     $toppers = DB::table('results')
-    ->join('users', 'results.user_id', '=', 'users.id')
-    ->select('results.user_id', 'users.name', DB::raw('SUM(results.marks) AS total_marks'))
-    ->groupBy('results.user_id', 'users.name')
-    ->orderByDesc('total_marks')
-    ->get();
+            ->join('users', 'results.user_id', '=', 'users.id')
+            ->select('results.user_id', 'users.name', DB::raw('SUM(results.marks) AS total_marks'))
+            ->groupBy('results.user_id', 'users.name')
+            ->orderByDesc('total_marks')
+            ->get();
     
         return $toppers;
     }

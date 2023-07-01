@@ -1,5 +1,5 @@
 @extends('frontend.layout.layout')
-@section('title', 'QNA')
+@section('title', 'Contact Us')
 
 @section('css')
     <!-- Select2 -->
@@ -35,15 +35,15 @@
                             <p><u>In case of any query, reach out to person mentioned below:</u></p>
                         <div class="form-group">
                             <label for="inputName">Name</label>
-                            <p>Dhawall Kochar</p>
+                            <p>{{ $data->contact_person_name }}</p>
                         </div>
                         <div class="form-group">
                             <label for="inputEmail">E-Mail</label>
-                            <p class="">dhawalkochar@gmail.com</p>
+                            <p class="">{{ $data->email }}</p>
                         </div>
                         <div class="form-group">
                             <label for="inputSubject">Mobile</label>
-                            <p>+91-8468921900</p>
+                            <p>{{ $data->mobile_number }}</p>
                         </div>
                         </div>
                     </div>

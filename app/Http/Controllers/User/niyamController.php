@@ -48,8 +48,12 @@ class niyamController extends Controller
     public function generateResult($submissionId)
     {
         $data = UserNiyamResponse::where('submission_id', $submissionId)->with('niyam')->get();
+        $totalMarks = count($data);
+        $obtainedMarks = $data->sum(function ($niyam) {
+            return $niyam->answer == 1 ? 1 : 0;
+        });
         
-        return view('frontend.niyam.result', compact('data'));
+        return view('frontend.niyam.result', compact('data','totalMarks','obtainedMarks'));
 
     }
 

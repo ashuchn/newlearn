@@ -60,7 +60,26 @@
                                 </div>
                             </div>
                         </a>
-
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <a href="" class="small-box-footer">
+                            <div class="info-box bg-gradient-primary">
+                                <span class="info-box-icon"><i class="fa-solid fa-bell"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Notice Box</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <a href="" class="small-box-footer">
+                            <div class="info-box bg-gradient-light">
+                                <span class="info-box-icon"><i class="fa-solid fa-clipboard-question"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Suggestion Box</span>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                     <!-- ./col -->
                 </div>

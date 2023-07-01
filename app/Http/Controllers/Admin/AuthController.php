@@ -52,7 +52,8 @@ class AuthController extends Controller
 
     public function contactUs()
     {
-        return view('frontend.contactUs');
+        $data  = ContactUs::find(1);
+        return view('frontend.contactUs', compact('data'));
     }
 
     public function showContactUs()

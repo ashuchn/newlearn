@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Validator;
 use App\Models\Niyam;
+use App\Models\UserNiyam;
 use App\Helpers\niyamHelper;
 use App\Models\UserNiyamResponse;
 use Illuminate\Http\Request;
@@ -66,5 +67,12 @@ class niyamController extends Controller
     {
         $data = UserNiyamResponse::where('submission_id', $submissionId)->with('niyam')->get();
         return view('backend.niyam.report', compact('data'));
+    }
+
+    public function generateOverallResult()
+    {
+        $data = niyamHelper::generateOverallResult();
+        // return $data;
+        return view('backend.niyam.overallReport', compact('data'));
     }
 }

@@ -17,67 +17,61 @@
                 </div>
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-info">
-                            <div class="inner">
-                                <h3></h3>
-
-                                <p>Question and Answers</p>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <a href="{{ route('users.index') }}" class="small-box-footer">
+                            <div class="info-box bg-gradient-light">
+                                <span class="info-box-icon"><i class="far fa-user"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Users</span>
+                                </div>
                             </div>
-                            <div class="icon">
-                                <i class="ion ion-bag"></i>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <a href="{{ route('quiz.index') }}" class="small-box-footer">
+                            <div class="info-box bg-gradient-info">
+                                <span class="info-box-icon"><i class="far fa-question"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Question and Answers</span>
+                                </div>
                             </div>
-                            <a href="{{ route('quiz.index') }}" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
+                        </a>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
                         <!-- small box -->
-                        <div class="small-box bg-success">
-                            <div class="inner">
-                                <h3><sup style="font-size: 20px"></sup></h3>
-                                <p>11 Niyam</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
-                            </div>
-                            <a href="{{ route('niyam.index') }}" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
+                            <a href="{{ route('niyam.index') }}" class="small-box-footer">
+                                <div class="info-box bg-gradient-success">
+                                    <span class="info-box-icon"><i class="fa-solid fa-pen"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">11 Niyam</span>
+                                    </div>
+                                </div>
+                            </a>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
+                    <div class="col-lg-3 col-md-6 col-sm-12">
                         <!-- small box -->
-                        <div class="small-box bg-warning">
-                            <div class="inner">
-                                <h3></h3>
-
-                                <p>Tap</p>
+                        <a href="" class="small-box-footer">
+                            <div class="info-box bg-gradient-warning">
+                                <span class="info-box-icon"><i class="fa-solid fa-person-praying"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Tap</span>
+                                </div>
                             </div>
-                            <div class="icon">
-                                <i class="ion ion-person-add"></i>
-                            </div>
-                            <a href="" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
+                        </a>
                     </div>
                     <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-danger">
-                            <div class="inner">
-                                <h3></h3>
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <a href="{{ route('tapasaya.index') }}" class="small-box-footer">
+                            <div class="info-box bg-gradient-secondary">
+                                <span class="info-box-icon"><i class="fa-solid fa-mobile"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Contact Us</span>
+                                </div>
+                            </div>
+                        </a>
 
-                                <p>Tapasaya</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-pie-graph"></i>
-                            </div>
-                            <a href="" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
-                        </div>
                     </div>
                     <!-- ./col -->
                 </div>

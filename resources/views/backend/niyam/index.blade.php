@@ -35,10 +35,13 @@
                             <div class="card-header">
                                 <div class="d-flex justify-content-left">
                                     <a href="{{ route('niyam.add') }}">
-                                        <button class="btn btn-primary">Add Niyam</button>
+                                        <button class="btn btn-primary mx-1">Add Niyam</button>
                                     </a>
                                     <a href="{{ route('admin.niyamSubmissions') }}">
-                                        <button class="btn btn-primary mx-2">View Submissions</button>
+                                        <button class="btn btn-primary mx-1">View Submissions</button>
+                                    </a>
+                                    <a href="{{ route('admin.niyam.generateResult') }}">
+                                        <button class="btn btn-primary mx-1">Show Overall Result</button>
                                     </a>
                                 </div>
                                 
@@ -47,7 +50,7 @@
                                 <table id="example" class="table table-bordered table-striped table-responsive-sm">
                                     <thead>
                                         <tr>
-                                            <th>S.No</th>
+                                            <th style="width: 10%">S.No</th>
                                             <th>Niyam</th>
                                             {{-- <th>Action</th> --}}
                                         </tr>

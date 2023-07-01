@@ -38,13 +38,13 @@
                                                             <div class="form-check form-check-inline">
                                                                 <input class="form-check-input" type="radio"
                                                                     value="1" name="niyam[{{ $item->id }}]"
-                                                                    id="1">
+                                                                    id="1" required>
                                                                 <label class="form-check-label" for="1">Yes</label>
                                                             </div>
                                                             <div class="form-check form-check-inline">
                                                                 <input class="form-check-input" type="radio"
                                                                     value="0" name="niyam[{{ $item->id }}]"
-                                                                    id="0">
+                                                                    id="0" required>
                                                                 <label class="form-check-label" for="0">No</label>
                                                             </div>
                                                         </div>
