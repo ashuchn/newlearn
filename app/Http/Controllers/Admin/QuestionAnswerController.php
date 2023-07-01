@@ -141,8 +141,15 @@ class QuestionAnswerController extends Controller
     public function generateReport($quizId)
     {
         $data = QuizHelper::generateReport($quizId);
-        return $data;
-        return view('backend.quiz.report', compact('data'));
+        $quiz = Quiz::find($quizId)?->quiz_name;
+        return view('backend.quiz.report', compact('data','quiz'));
+    }
+
+    public function calculateOverallResults()
+    {
+        $data = QuizHelper::calculateOverallResults();
+        // return $data;
+        return view('backend.quiz.overallResult', compact('data'));
     }
 
 }

@@ -1,5 +1,5 @@
 @extends('backend.layout.layout')
-@section('title','Reporting')
+@section('title','Quiz Overall Result')
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="{{ url('assets/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -12,12 +12,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Reporting of <b>{{ $quiz }}</b></h1>
+                        <h1>Quiz Overall Result</b></h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Reporting</li>
+                            <li class="breadcrumb-item active">Quiz Overall Result</li>
                         </ol>
                     </div>
                 </div>
@@ -76,47 +76,4 @@
             <!-- /.container-fluid -->
         </section>
     </div>
-@endsection
-@section('script')
-    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable();
-        });
-
-        function saveSwitchState(checkbox) 
-        {
-            var switchState = checkbox.checked ? 1 : 0 ; // Get the state of the switch button
-            var itemId = checkbox.id.replace("quiz", ""); // Extract the item ID from the checkbox ID
-
-            // Get the CSRF token value from the meta tag in your HTML
-            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-
-             // Include the CSRF token in the AJAX headers
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                }
-            });
-
-            $.ajax({
-                url: "{{ route('quiz.changeStatus') }}",
-                type: "POST",
-                data: {
-                    switchState: switchState,
-                    itemId: itemId
-                },
-                success: function(response) {
-                    // Handle the response from the server if needed
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    // Handle errors if any
-                    console.error(error);
-                }
-            });
-        }
-
-    </script>
 @endsection

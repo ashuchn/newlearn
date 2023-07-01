@@ -48,7 +48,7 @@
                                     </tr>
                                     <tr>
                                         <td><b>Total Marks:</b></td>
-                                        <td>{{ $totalQuestions*5 }}</td>
+                                        <td>{{ $totalQuestions }}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Marks Obtained:</b></td>

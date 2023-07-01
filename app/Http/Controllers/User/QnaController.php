@@ -74,7 +74,7 @@ class QnaController extends Controller
         $quiz               = Quiz::find($quizId);
         $correctAnswers     = 0;
         $incorrectAnswers   = 0;
-        $perAnswerMarks     = 5;
+        $perAnswerMarks     = 1;
         $totalQuestions     = Question::where('quiz_id', $quizId)->count();
 
         $submittedAnswers   = UserAnswer::where('user_response_id', $userResponseId->id)->pluck('answer_id');

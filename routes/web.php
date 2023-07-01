@@ -94,6 +94,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('quiz/{quizId}/question/save',[QuestionAnswerController::class, 'quizSaveQuestionAnswer'])->name('quiz.saveQuestionAnswer');
         Route::post('quiz/changePublishStatus',[QuestionAnswerController::class, 'changePublishStatus'])->name('quiz.changeStatus');
         Route::get('quiz/{quizId}/generateReport',[QuestionAnswerController::class,'generateReport'])->name('quiz.generateReport');
+        Route::get('quiz/generateOverallResult', [QuestionAnswerController::class, 'calculateOverallResults'])->name('admin.calculateOverallResults');
 
         //niyam module
         Route::get('niyam',[niyamController::class, 'index'])->name('niyam.index');

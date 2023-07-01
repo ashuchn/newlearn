@@ -43,7 +43,10 @@
                             <!-- /.card-header -->
                             <div class="card-header">
                                 <a href="{{ route('quiz.add') }}">
-                                    <button class="btn btn-primary">Create Quiz</button>
+                                    <button class="mx-1 btn btn-primary">Create Quiz</button>
+                                </a>
+                                <a href="{{ route('admin.calculateOverallResults') }}">
+                                    <button class="mx-1 btn btn-success">Generate Overall report</button>
                                 </a>
                             </div>
                             <div class="card-body">
@@ -69,15 +72,15 @@
                                                     <input class="form-check-input" type="checkbox" role="switch" id="quiz{{$item->id}}" onchange="saveSwitchState(this)" {{ $item->is_published ? 'checked' : '' }} >
                                                   </div>
                                                 </td>
-                                                <td>
+                                                <td class="d-flex justify-content-center">
                                                     <a href="{{ route('quiz.questions', ['quizId' =>$item->id ]) }}">
-                                                        <button class="btn-success btn">View Questions</button>
+                                                        <button class="mx-1 btn-sm btn-success btn">View Questions</button>
                                                     </a>
                                                     <a href="{{ route('admin.quiz.viewSubmissions', ['quizId'=> $item->id]) }}">
-                                                        <button class="btn-success btn">View Submissions</button>
+                                                        <button class="mx-1 btn-sm btn-success btn">View Submissions</button>
                                                     </a>
                                                     <a href="{{ route('quiz.generateReport', ['quizId' => $item->id]) }}">
-                                                        <button class="btn-success btn">Generate Report</button>
+                                                        <button class="mx-1 btn-sm btn-success btn">Generate Report</button>
                                                     </a>
                                                 </td>
                                             </tr>
