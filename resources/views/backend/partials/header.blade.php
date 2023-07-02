@@ -98,6 +98,12 @@
                 </a>
               </li>
               <li class="nav-item ">
+                <a href="{{ route('tap.index') }}" class="nav-link text-white {{ Route::is('tap.index') ? 'active' : '' }}">
+                    <i class="fa-solid fa-regular fa-hands-praying"></i>
+                    <p>Tap</p>
+                </a>
+              </li>
+              <li class="nav-item ">
                 <a href="{{ route('admin.contactUs') }}" class="nav-link text-white {{ Route::is('admin.contactUs') ? 'active' : '' }}">
                     <i class="fa-solid fa-regular fa-mobile"></i>
                     <p>Contact Us</p>

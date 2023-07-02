@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\QnaController;
 use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\Admin\TapController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\niyamController;
 use App\Http\Controllers\User\TapasayaController;
 use App\Http\Controllers\Admin\QuestionAnswerController;
+use App\Http\Controllers\User\TapController as UserTapController;
 use App\Http\Controllers\User\niyamController as UserNiyamController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 
@@ -71,6 +73,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('download/Moksh', [TapasayaController::class, 'downloadMoksh'])->name('download.Moksh');
         Route::get('download/Shrani', [TapasayaController::class, 'downloadShrani'])->name('download.Shrani');
         Route::get('download/Siddhi', [TapasayaController::class, 'downloadSiddhi'])->name('download.Siddhi');
+
+        // tap module
+        Route::get('tap', [UserTapController::class, 'index'])->name('user.tap.index');
+        Route::get('tap/pastSubmissions', [UserTapController::class, 'pastSubmissions'])->name('user.tap.pastSubmissions');
+        Route::get('tap/todayQuiz', [UserTapController::class, 'todayQuiz'])->name('user.tap.todayQuiz');
+        Route::middleware(['checkIfTapQuizSubmitted'])->group(function () {
+            Route::get('tap/takeQuiz/{quizId}', [UserTapController::class, 'takeQuiz'])->name('user.tap.takeQuiz');
+            Route::post('tap/submitQuiz/{quizId}', [UserTapController::class, 'submitQuiz'])->name('user.tap.submitQuiz');            
+        });
+        Route::get('tap/quiz/{quizId}/response/{tapResponseId?}', [UserTapController::class, 'quizResult'])->name('tap.quiz.result');
     });
 });
 Route::get('logout', [AuthController::class,'logout'])->name('logout');
@@ -116,6 +128,16 @@ Route::group(['prefix' => 'admin'], function(){
         //contact us module
         Route::get('setting/contact-us', [AdminAuthController::class, 'showContactUs'])->name('admin.contactUs');
         Route::post('setting/update/contact-us', [AdminAuthController::class, 'updateContactUs'])->name('admin.contactus.update');
+
+        // tap module
+        Route::get('tap/index',[TapController::class, 'index'])->name('tap.index');
+        Route::get('tap/addQuiz',[TapController::class, 'addQuiz'])->name('tap.addQuiz');
+        Route::post('tap/save',[TapController::class, 'save'])->name('tap.save');
+        Route::post('tap/changeQuizStatus',[TapController::class, 'changeQuizStatus'])->name('tap.quiz.changeStatus');
+        Route::get('tap/questions/{quizId}',[TapController::class, 'tapQuestions'])->name('tap.quiz.questions');
+        Route::get('tap/addQuestion/{quizId}',[TapController::class, 'addQuestions'])->name('tap.quiz.addQuestions');
+        Route::post('tap/saveQuestion/{quizId}',[TapController::class, 'saveQuestion'])->name('tap.saveQuestion');
+        Route::get('tap/questionDelete/{questionId}', [TapController::class, 'deleteQuestion'])->name('tap.questionDelete');
 
         
     });

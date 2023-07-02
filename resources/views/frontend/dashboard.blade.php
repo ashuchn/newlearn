@@ -41,7 +41,7 @@
                     <!-- ./col -->
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <!-- small box -->
-                        <a href="" class="small-box-footer">
+                        <a href="{{ route('user.tap.index') }}" class="small-box-footer">
                             <div class="info-box bg-gradient-warning">
                                 <span class="info-box-icon"><i class="fa-solid fa-person-praying"></i></span>
                                 <div class="info-box-content">
