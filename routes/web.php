@@ -138,7 +138,10 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('tap/addQuestion/{quizId}',[TapController::class, 'addQuestions'])->name('tap.quiz.addQuestions');
         Route::post('tap/saveQuestion/{quizId}',[TapController::class, 'saveQuestion'])->name('tap.saveQuestion');
         Route::get('tap/questionDelete/{questionId}', [TapController::class, 'deleteQuestion'])->name('tap.questionDelete');
-
+        Route::get('tap/quiz/{quizId}/submissions', [TapController::class, 'viewSubmissions'])->name('tap.quiz.viewSubmissions');
+        Route::get('tap/quiz/{quizId}/user/{userId}/result', [TapController::class, 'quizResult'])->name('tap.quizResult');
+        Route::get('tap/quiz/{quizId}/report', [TapController::class, 'generateReport'])->name('tap.quiz.generateReport');
+        Route::get('tap/calculateOverallResults', [TapController::class, 'calculateOverallResults'])->name('tao.calculateOverallResults');
         
     });
     Route::get('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');

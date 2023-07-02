@@ -31,4 +31,9 @@ class TapQuiz extends Model
 
         return $userResponse ? true : false;
     }
+
+    public function tapResponses()
+    {
+        return $this->hasMany(TapResponse::class, 'tap_quiz_id');
+    }
 }

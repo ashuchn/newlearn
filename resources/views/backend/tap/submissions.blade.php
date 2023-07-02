@@ -1,5 +1,5 @@
 @extends('backend.layout.layout')
-@section('title','Tap Daily Quiz')
+@section('title','Tap Quiz Submission')
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="{{ url('assets/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -12,27 +12,17 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Tap</h1>
+                        <h1>Tap Submissions</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Tap</li>
+                            <li class="breadcrumb-item active">Tap Submissions</li>
                         </ol>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
         </section>
-
-        @if (session('success'))
-            <div class="card-body">
-                <div class="alert alert-success alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h5>{{ Session::get('success') }}</h5>
-                    <?php Session::forget('success'); ?>
-                </div>
-            </div>
-        @endif
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -42,11 +32,8 @@
                         <div class="card">
                             <!-- /.card-header -->
                             <div class="card-header">
-                                <a href="{{ route('tap.addQuiz') }}">
-                                    <button class="mx-1 btn btn-primary">Create Quiz</button>
-                                </a>
-                                <a href="{{ route('tao.calculateOverallResults') }}">
-                                    <button class="mx-1 btn btn-success">Generate Overall report</button>
+                                <a href="{{ route('tap.index') }}">
+                                    <button class="btn btn-primary">Back</button>
                                 </a>
                             </div>
                             <div class="card-body">
@@ -55,31 +42,24 @@
                                         <tr>
                                             <th>S.No</th>
                                             <th>Quiz Name</th>
-                                            <th>Start Date</th>
-                                            <th>Published</th>
+                                            <th>Quiz Conducted on</th>
+                                            <th>Submitted By</th>
+                                            <th>Submitted at</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data as $key=>$item)
+                                        @foreach ($data as $key => $item)
+                                            @php $quiz = \App\Models\TapQuiz::find($item->tap_quiz_id) @endphp
                                             <tr>
                                                 <td>{{ $key+1 }}</td>
-                                                <td>{{ $item->title }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($item->start_date)->toDayDateTimeString() }}</td>
+                                                <td>{{ $quiz->title ?? 'deleted user' }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($quiz->start_date)->format('d-m-Y') }}</td>
+                                                <td>{{ \App\Models\User::find($item->user_id)?->name }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y H:s') }}</td>
                                                 <td>
-                                                    <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" role="switch" id="quiz{{$item->id}}" onchange="saveSwitchState(this)" {{ $item->is_published ? 'checked' : '' }} >
-                                                  </div>
-                                                </td>
-                                                <td class="d-flex justify-content-center">
-                                                    <a href="{{ route('tap.quiz.questions', ['quizId' =>$item->id ]) }}">
-                                                        <button class="mx-1 btn-sm btn-success btn">View Questions</button>
-                                                    </a>
-                                                    <a href="{{ route('tap.quiz.viewSubmissions', ['quizId'=> $item->id]) }}">
-                                                        <button class="mx-1 btn-sm btn-success btn">View Submissions</button>
-                                                    </a>
-                                                    <a href="{{ route('tap.quiz.generateReport', ['quizId' => $item->id]) }}">
-                                                        <button class="mx-1 btn-sm btn-success btn">Generate Report</button>
+                                                    <a href="{{ route('tap.quizResult', ['quizId' => $item->tap_quiz_id, 'userId' => $item->user_id]) }}">
+                                                        <button class="btn btn-success">Result</button>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -123,7 +103,7 @@
             });
 
             $.ajax({
-                url: "{{ route('tap.quiz.changeStatus') }}",
+                url: "{{ route('quiz.changeStatus') }}",
                 type: "POST",
                 data: {
                     switchState: switchState,

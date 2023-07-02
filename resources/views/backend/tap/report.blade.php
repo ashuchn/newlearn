@@ -1,5 +1,5 @@
 @extends('backend.layout.layout')
-@section('title','Tap Daily Quiz')
+@section('title','Tap Quiz Reporting')
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="{{ url('assets/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -12,12 +12,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Tap</h1>
+                        <h1>Reporting of <b>{{ $quiz->title??  'undefined quiz' }}</b></h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Tap</li>
+                            <li class="breadcrumb-item active">Reporting</li>
                         </ol>
                     </div>
                 </div>
@@ -38,15 +38,11 @@
                 <div class="row">
                     <div class="col-12">
 
-
                         <div class="card">
                             <!-- /.card-header -->
                             <div class="card-header">
-                                <a href="{{ route('tap.addQuiz') }}">
-                                    <button class="mx-1 btn btn-primary">Create Quiz</button>
-                                </a>
-                                <a href="{{ route('tao.calculateOverallResults') }}">
-                                    <button class="mx-1 btn btn-success">Generate Overall report</button>
+                                <a href="{{ route('tap.index') }}">
+                                    <button class="btn btn-primary">Go Back</button>
                                 </a>
                             </div>
                             <div class="card-body">
@@ -54,34 +50,16 @@
                                     <thead>
                                         <tr>
                                             <th>S.No</th>
-                                            <th>Quiz Name</th>
-                                            <th>Start Date</th>
-                                            <th>Published</th>
-                                            <th>Action</th>
+                                            <th>User</th>
+                                            <th>Marks Obtained</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($data as $key=>$item)
                                             <tr>
                                                 <td>{{ $key+1 }}</td>
-                                                <td>{{ $item->title }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($item->start_date)->toDayDateTimeString() }}</td>
-                                                <td>
-                                                    <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" role="switch" id="quiz{{$item->id}}" onchange="saveSwitchState(this)" {{ $item->is_published ? 'checked' : '' }} >
-                                                  </div>
-                                                </td>
-                                                <td class="d-flex justify-content-center">
-                                                    <a href="{{ route('tap.quiz.questions', ['quizId' =>$item->id ]) }}">
-                                                        <button class="mx-1 btn-sm btn-success btn">View Questions</button>
-                                                    </a>
-                                                    <a href="{{ route('tap.quiz.viewSubmissions', ['quizId'=> $item->id]) }}">
-                                                        <button class="mx-1 btn-sm btn-success btn">View Submissions</button>
-                                                    </a>
-                                                    <a href="{{ route('tap.quiz.generateReport', ['quizId' => $item->id]) }}">
-                                                        <button class="mx-1 btn-sm btn-success btn">Generate Report</button>
-                                                    </a>
-                                                </td>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->total_marks }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -123,7 +101,7 @@
             });
 
             $.ajax({
-                url: "{{ route('tap.quiz.changeStatus') }}",
+                url: "{{ route('quiz.changeStatus') }}",
                 type: "POST",
                 data: {
                     switchState: switchState,
