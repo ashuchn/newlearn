@@ -68,6 +68,6 @@ class Kernel extends HttpKernel
         'checkNiyamSubmitted' => \App\Http\Middleware\checkNiyamSubmitted::class,
         'checkIfPaymentDone' => \App\Http\Middleware\checkIfPaymentDone::class,
         'checkAccountIsChoosen' => \App\Http\Middleware\checkAccountIsChoosen::class,
-        'checkIfTapQuizSubmitted'=>\App\Http\Middleware\checkIfTapQuizSubmitted::class
+        'checkTapIsSubmitted' => \App\Http\Middleware\checkTapIsSubmitted::class,
     ];
 }

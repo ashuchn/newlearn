@@ -4,26 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use DB;
 use Validator;
-use App\Models\User;
-use App\Models\TapQuiz;
-use App\Models\TapAnswers;
-use App\Models\TapResult;
 use App\Helpers\TapHelper;
-use App\Models\TapQuestion;
+use App\Models\User;
 use App\Models\TapResponse;
+use App\Models\TapQuestion;
 use Illuminate\Http\Request;
-use App\Models\TapSubmitAnswer;
 use App\Http\Controllers\Controller;
 
 class TapController extends Controller
 {
     public function index()
     {
-        $data = TapQuiz::orderByDesc('id')->get();
+        $data = TapQuestion::all();
         return view('backend.tap.index', compact('data'));
     }
 
-    public function addQuiz()
+    public function addTap()
     {
         return view('backend.tap.add');
     }
@@ -31,8 +27,9 @@ class TapController extends Controller
     public function save(Request $request)
     {
         $valid = Validator::make($request->all(), [
-            "title"     => "required",
-            "start_date"    => ['required','date_format:d/m/Y']
+            "tap_text"          => "required",
+            "marks"             => ['required','integer'],
+            "time_of_the_day"   => 'required'
         ]);
 
         if($valid->fails()) {
@@ -60,84 +57,6 @@ class TapController extends Controller
         return redirect()->route('tap.index');
     } 
 
-    public function changeQuizStatus(Request $request)
-    {
-        $data = TapHelper::changePublishStatus($request);
-        return $data;     
-    }
-
-    public function tapQuestions($quizId)
-    {
-        $questionAnswers = TapQuiz::with('questions.answers')->find($quizId);
-        return view('backend.tap.questions', compact('questionAnswers'));
-    }
-
-    public function addQuestions($quizId)
-    {
-        return view('backend.tap.addQuestion');
-    }
-
-    public function saveQuestion($quizId,Request $request)
-    {
-        $valid = Validator::make($request->all(), [
-            'question' => 'required',
-            'answer' => 'required|array',
-            'answer.*' => 'required',
-            'marks' => 'required|array',
-            'marks.*' => 'required|numeric',
-        ]);
-
-        if($valid->fails()) {
-            flash()
-            ->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addError($valid->errors()->first());
-            return back()->withInput();
-        };
-
-        $question = TapQuestion::create([
-            'tap_quiz_id'   => $quizId,
-            'question_text' => $request->question,
-
-        ]);
-
-        $answers = $request->answer;
-        $marks = $request->marks;
-
-        foreach ($answers as $index => $answerText) {
-            TapAnswers::create([
-                'question_id' => $question->id,
-                'answer_text' => $answerText,
-                'marks' => $marks[$index],
-            ]);
-        }
-
-        // Flash success message or perform any other desired actions
-        flash()->options([
-            'timeout' => 3000, // 3 seconds
-            'position' => 'top-center',
-        ])->addSuccess('Saved!');
-        return redirect()->route('tap.quiz.questions', ['quizId'=>$quizId]);
-    }
-
-    public function deleteQuestion($questionId)
-    {
-        $delete = TapQuestion::find($questionId)->delete();
-        if($delete) {
-            flash()->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addSuccess('Question deleted!');
-            return back();
-        } else {
-            flash()->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addError('Some error occured!');
-            return back();
-        }
-    }
 
     public function viewSubmissions($quizId)
     {
@@ -190,37 +109,14 @@ class TapController extends Controller
         // )
         // ->get();
         // return $results;
-        $results = TapResponse::join('tap_answer_submission','tap_answer_submission.tap_response_id','=','tap_response.id')
-                    ->groupBy('tap_response.user_id')
+        $data = TapResponse::join('tap_submissions','tap_submissions.tap_response_id','=','tap_responses.id')
+                    ->groupBy('tap_responses.user_id')
                     ->select(
-                        'tap_response.user_id',
-                        DB::raw('sum(tap_answer_submission.marks) as total_marks')
+                        'tap_responses.user_id',
+                        DB::raw('sum(tap_submissions.marks) as total_marks')
                     )
-                    ->get();
-
-    foreach ($results as $result) {
-        $existingResult = TapResult::where('user_id', $result->user_id)
-            ->first();
-
-        if ($existingResult) {
-            $existingResult->marks = $result->total_marks;
-            $existingResult->save();
-        } else {
-            TapResult::create([
-                'user_id' => $result->user_id,
-                'marks' => $result->total_marks,
-            ]);
-        }
-    }
-    
-    $data = DB::table('tap_results')
-            ->join('users', 'tap_results.user_id', '=', 'users.id')
-            ->select('tap_results.user_id', 'users.name', DB::raw('SUM(tap_results.marks) AS total_marks'))
-            ->groupBy('tap_results.user_id', 'users.name')
-            ->orderByDesc('total_marks')
-            ->get();
-    
-        // return $toppers;
+                    ->orderBy('total_marks','desc')
+                    ->get();         
         return view('backend.tap.overallResult', compact('data'));
     }
 }

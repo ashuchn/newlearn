@@ -1,20 +1,5 @@
 @extends('backend.layout.layout')
 @section('title','Create Tap Daily Quiz')
-@section('css')
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script>
-  $( function() {
-    $( ".datepicker" ).datepicker({
-      dateFormat: 'dd/mm/yy',
-      showButtonPanel: true,
-      changeMonth: true,
-      changeYear: true,
-      minDate: 0
-    });
-  } );
-  </script>
-@endsection
 
 @section('content')
     <div class="content-wrapper">
@@ -60,13 +45,21 @@
                                 <form action="{{ route('tap.save') }}" method="post">
                                     @csrf
                                     <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label for="quiz_name">Tap Quiz Name</label>
-                                            <input required type="text" name="title" value="{{ old('quiz_name') }}" placeholder="Enter Quiz Name" class="form-control" id="quiz_name">
+                                        <div class="form-group col-md-4">
+                                            <label for="quiz_name">Tap Name</label>
+                                            <input required type="text" name="tap_text" value="{{ old('tap_text') }}" placeholder="Enter Tap Name" class="form-control" id="quiz_name">
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="start_date">Start Date</label>
-                                            <input required type="text" name="start_date" value="{{ old('start_date') }}" placeholder="Enter Start Date" class="form-control datepicker" id="start_date">
+                                        <div class="form-group col-md-4">
+                                            <label for="time_of_the_day">Tap Time:</label>
+                                            <select required class="form-control" name="time_of_the_day" id="time_of_the_day">
+                                                <option value="">Choose any option:</option>
+                                                <option value="1">दिन के तप</option>
+                                                <option value="2">रात के तप</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="marks">Marks</label>
+                                            <input required type="text" name="marks" value="{{ old('marks') }}" placeholder="Enter Marks" class="form-control" id="marks">
                                         </div>
                                     </div>
                                     <div class="row">

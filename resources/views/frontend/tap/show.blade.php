@@ -33,7 +33,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex justify-content-left align-items-right">
-                                    <a href="{{ route('user.tap.todayQuiz') }}"">
+                                    <a href="{{ route('user.tap.index') }}"">
                                         <button class="btn btn-warning mx-2">Go Back</button>
                                     </a>
                                     <button class="btn btn-primary" onclick="window.print();"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
@@ -43,16 +43,12 @@
                                 <table id="" class="table table-bordered">
                                     <tbody>
                                     <tr>
-                                        <td><b>Quiz Name:</b></td>
-                                        <td>{{ $quiz->title }}</td>
-                                    </tr>
-                                    <tr>
                                         <td><b>Marks Obtained:</b></td>
-                                        <td>{{ $totalMarks }}</td>
+                                        <td>{{ $data->marks }}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Submitted at:</b></td>
-                                        <td>{{ \Carbon\Carbon::parse($tapResponseId->created_at)->format('d-m-Y h:i')}}</td>
+                                        <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d-m-Y h:i')}}</td>
                                     </tr>
                                     </tbody>
                                 </table>

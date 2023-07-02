@@ -58,7 +58,7 @@
                                         @foreach ($data as $key=>$item)
                                             <tr>
                                                 <td>{{ $key+1 }}</td>
-                                                <td>{{ $item->name }}</td>
+                                                <td>{{ \App\Models\User::find($item->user_id)?->name }}</td>
                                                 <td>{{ $item->total_marks }}</td>
                                             </tr>
                                         @endforeach
