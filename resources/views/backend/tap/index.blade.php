@@ -42,8 +42,8 @@
                         <div class="card">
                             <!-- /.card-header -->
                             <div class="card-header">
-                                <a href="{{ route('tap.addQuiz') }}">
-                                    <button class="mx-1 btn btn-primary">Create Quiz</button>
+                                <a href="{{ route('tap.addTap') }}">
+                                    <button class="mx-1 btn btn-primary">Add Tap</button>
                                 </a>
                                 <a href="{{ route('tao.calculateOverallResults') }}">
                                     <button class="mx-1 btn btn-success">Generate Overall report</button>
@@ -53,35 +53,17 @@
                                 <table id="example" class="table table-bordered table-striped table-responsive-sm">
                                     <thead>
                                         <tr>
-                                            <th>S.No</th>
-                                            <th>Quiz Name</th>
-                                            <th>Start Date</th>
-                                            <th>Published</th>
-                                            <th>Action</th>
+                                            <th style="width: 10%">S.No</th>
+                                            <th>Tap Name</th>
+                                            <th>Marks</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($data as $key=>$item)
                                             <tr>
                                                 <td>{{ $key+1 }}</td>
-                                                <td>{{ $item->title }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($item->start_date)->toDayDateTimeString() }}</td>
-                                                <td>
-                                                    <div class="form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" role="switch" id="quiz{{$item->id}}" onchange="saveSwitchState(this)" {{ $item->is_published ? 'checked' : '' }} >
-                                                  </div>
-                                                </td>
-                                                <td class="d-flex justify-content-center">
-                                                    <a href="{{ route('tap.quiz.questions', ['quizId' =>$item->id ]) }}">
-                                                        <button class="mx-1 btn-sm btn-success btn">View Questions</button>
-                                                    </a>
-                                                    <a href="{{ route('tap.quiz.viewSubmissions', ['quizId'=> $item->id]) }}">
-                                                        <button class="mx-1 btn-sm btn-success btn">View Submissions</button>
-                                                    </a>
-                                                    <a href="{{ route('tap.quiz.generateReport', ['quizId' => $item->id]) }}">
-                                                        <button class="mx-1 btn-sm btn-success btn">Generate Report</button>
-                                                    </a>
-                                                </td>
+                                                <td>{{ $item->tap_text }}</td>
+                                                <td>{{ $item->marks }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -105,40 +87,5 @@
         $(document).ready(function() {
             $('#example').DataTable();
         });
-
-        function saveSwitchState(checkbox) 
-        {
-            var switchState = checkbox.checked ? 1 : 0 ; // Get the state of the switch button
-            var itemId = checkbox.id.replace("quiz", ""); // Extract the item ID from the checkbox ID
-
-            // Get the CSRF token value from the meta tag in your HTML
-            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-
-             // Include the CSRF token in the AJAX headers
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                }
-            });
-
-            $.ajax({
-                url: "{{ route('tap.quiz.changeStatus') }}",
-                type: "POST",
-                data: {
-                    switchState: switchState,
-                    itemId: itemId
-                },
-                success: function(response) {
-                    // Handle the response from the server if needed
-                    console.log(response);
-                },
-                error: function(xhr, status, error) {
-                    // Handle errors if any
-                    console.error(error);
-                }
-            });
-        }
-
     </script>
 @endsection

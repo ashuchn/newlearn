@@ -41,7 +41,6 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>View</th>
-                                                    <th>Quiz Name</th>
                                                     <th>Submitted On</th>
                                                 </tr>
                                             </thead>
@@ -50,9 +49,8 @@
                                                         <tr>
                                                             <td>{{ $key+1 }}</td>
                                                             <td>
-                                                                <a href="{{ route('tap.quiz.result', ['quizId' => $item->tap_quiz_id]) }}">View</a>
+                                                                <a href="{{ route('tap.quiz.result', ['tapResponseId' => $item->submission->tap_response_id]) }}">View</a>
                                                             </td>
-                                                            <td>{{ \App\Models\TapQuiz::find($item->tap_quiz_id)?->title }}</td>
                                                             <td>{{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d h:i') }}</td>
                                                         </tr>
                                                     @endforeach

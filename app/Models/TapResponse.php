@@ -8,25 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class TapResponse extends Model
 {
     use HasFactory;
-    protected $table = 'tap_response';
-    
     protected $fillable = [
-        'user_id','tap_quiz_id'
+        'user_id','submitted_on'
     ];
 
-    public function user()
+    public function submission()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(TapSubmission::class);
     }
-
-    public function tapQuiz()
-    {
-        return $this->belongsTo(TapQuiz::class);
-    }
-
-    public function userAnswers()
-    {
-        return $this->hasMany(TapSubmitAnswer::class);
-    }
-
 }

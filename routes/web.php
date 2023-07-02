@@ -77,12 +77,11 @@ Route::middleware(['auth'])->group(function () {
         // tap module
         Route::get('tap', [UserTapController::class, 'index'])->name('user.tap.index');
         Route::get('tap/pastSubmissions', [UserTapController::class, 'pastSubmissions'])->name('user.tap.pastSubmissions');
-        Route::get('tap/todayQuiz', [UserTapController::class, 'todayQuiz'])->name('user.tap.todayQuiz');
-        Route::middleware(['checkIfTapQuizSubmitted'])->group(function () {
-            Route::get('tap/takeQuiz/{quizId}', [UserTapController::class, 'takeQuiz'])->name('user.tap.takeQuiz');
-            Route::post('tap/submitQuiz/{quizId}', [UserTapController::class, 'submitQuiz'])->name('user.tap.submitQuiz');            
+        Route::middleware(['checkTapIsSubmitted'])->group(function () {
+            Route::get('tap/todayQuiz', [UserTapController::class, 'todayQuiz'])->name('user.tap.todayQuiz');
+            Route::post('tap/submit', [UserTapController::class, 'submitQuiz'])->name('tap.submit');
         });
-        Route::get('tap/quiz/{quizId}/response/{tapResponseId?}', [UserTapController::class, 'quizResult'])->name('tap.quiz.result');
+        Route::get('tap/response/{tapResponseId?}', [UserTapController::class, 'quizResult'])->name('tap.quiz.result');
     });
 });
 Route::get('logout', [AuthController::class,'logout'])->name('logout');
@@ -131,15 +130,8 @@ Route::group(['prefix' => 'admin'], function(){
 
         // tap module
         Route::get('tap/index',[TapController::class, 'index'])->name('tap.index');
-        Route::get('tap/addQuiz',[TapController::class, 'addQuiz'])->name('tap.addQuiz');
+        Route::get('tap/addTap',[TapController::class, 'addTap'])->name('tap.addTap');
         Route::post('tap/save',[TapController::class, 'save'])->name('tap.save');
-        Route::post('tap/changeQuizStatus',[TapController::class, 'changeQuizStatus'])->name('tap.quiz.changeStatus');
-        Route::get('tap/questions/{quizId}',[TapController::class, 'tapQuestions'])->name('tap.quiz.questions');
-        Route::get('tap/addQuestion/{quizId}',[TapController::class, 'addQuestions'])->name('tap.quiz.addQuestions');
-        Route::post('tap/saveQuestion/{quizId}',[TapController::class, 'saveQuestion'])->name('tap.saveQuestion');
-        Route::get('tap/questionDelete/{questionId}', [TapController::class, 'deleteQuestion'])->name('tap.questionDelete');
-        Route::get('tap/quiz/{quizId}/submissions', [TapController::class, 'viewSubmissions'])->name('tap.quiz.viewSubmissions');
-        Route::get('tap/quiz/{quizId}/user/{userId}/result', [TapController::class, 'quizResult'])->name('tap.quizResult');
         Route::get('tap/quiz/{quizId}/report', [TapController::class, 'generateReport'])->name('tap.quiz.generateReport');
         Route::get('tap/calculateOverallResults', [TapController::class, 'calculateOverallResults'])->name('tao.calculateOverallResults');
         

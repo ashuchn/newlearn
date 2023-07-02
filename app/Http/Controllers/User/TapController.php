@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\TapQuiz;
-use App\Models\TapAnswers;
+
 use App\Models\TapQuestion;
 use App\Models\TapResponse;
+use App\Models\TapSubmission;
 use Illuminate\Http\Request;
-use App\Models\TapSubmitAnswer;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
@@ -20,51 +19,35 @@ class TapController extends Controller
 
     public function todayQuiz()
     {
-        $data = TapQuiz::where('start_date', date('Y-m-d'))->get();
-        foreach ($data as $quiz) {
-            $quiz->hasUserGivenQuiz = $quiz->hasUserGivenQuiz;
-        }
-        return view('frontend.tap.all', compact('data'));
+        $morningTaps = TapQuestion::where('time_of_the_day',1)->get();
+        $nightTaps = TapQuestion::where('time_of_the_day',2)->get();
+        return view('frontend.tap.quiz', compact('morningTaps','nightTaps'));
     }
 
-    public function takeQuiz($quizId)
-    {
-        $questionAnswers = TapQuestion::where('tap_quiz_id', $quizId)->with(['answers'])->get();
-        // return $questionAnswers;
-        return view('frontend.tap.takeQuiz', compact('questionAnswers'));
-    }
 
-    public function submitQuiz(Request $request, $quizId)
+    public function submitQuiz(Request $request)
     {
         // save user response 
         $tapResponse = TapResponse::create([
-            "user_id" => auth()->user()->id,
-            "tap_quiz_id" => $quizId
+            "user_id"       => auth()->user()->id,
+            "submitted_on"  => \Carbon\Carbon::now()->format('Y-m-d') 
         ]);
-        if($request->has('answer')) {
-            $answer = $request->answer;
-            foreach($answer as $questionId => $answerId) {
-                $answerInstance = TapAnswers::find($answerId);
-                TapSubmitAnswer::create([
-                    "tap_response_id"   => $tapResponse->id,
-                    "question_id"       => $questionId,
-                    "answer_id"         => $answerId,
-                    "marks"             => $answerInstance->marks
-                ]);
-            }
+        $morningTapMarks    = $request->morning_tap ?? 0;
+        $nightTapMarks      = $request->night_tap ?? 0;
+        $totalMarks         = $morningTapMarks + $nightTapMarks;
 
-            return redirect()->route('tap.quiz.result', 
-                [
-                    'quizId' => $quizId,'tapResponseId' => $tapResponse->id
-                ])->with('success','Result Generated');
-        }
+        $submit = TapSubmission::create([
+            "tap_response_id"   => $tapResponse->id,
+            "marks"             => $totalMarks
+        ]);
+
         return redirect()->route('tap.quiz.result', 
-                [
-                    'quizId' => $quizId,'tapResponseId' => $tapResponse->id
-                ])->with('success','No answer Submitted! Result Generated');
+        [
+            'tapResponseId' => $tapResponse->id
+        ])->with('success','Result Generated');
     }
 
-    public function quizResult($quizId, TapResponse $tapResponseId = null)
+    public function quizResult(TapResponse $tapResponseId = null)
     {
         if(!isset($tapResponseId)) {
             $tapResponseId = TapResponse::where([
@@ -72,16 +55,14 @@ class TapController extends Controller
                 ['user_id', auth()->user()->id]
             ])->first();
         }
-        $quiz               = TapQuiz::find($quizId);
-        $totalQuestions     = TapQuestion::where('tap_quiz_id', $quizId)->count();
-        $submittedAnswerIds   = TapSubmitAnswer::where('tap_response_id', $tapResponseId->id)->pluck('answer_id');
-        $totalMarks = TapAnswers::whereIn('id', $submittedAnswerIds)->sum('marks');
-        return view('frontend.tap.show', compact('totalMarks','quiz','tapResponseId'));
+        
+        $data = TapSubmission::where('tap_response_id', $tapResponseId->id)->first();
+        return view('frontend.tap.show', compact('data'));
     }
 
     public function pastSubmissions()
     {
-        $data = TapResponse::where('user_id', Auth::id())->with('tapQuiz')->get();
+        $data = TapResponse::where('user_id', Auth::id())->with('submission')->get();
         return view('frontend.tap.pastSubmissions', compact('data'));
     }
 }
