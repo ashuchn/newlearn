@@ -120,6 +120,8 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('niyam/add',[niyamController::class, 'addNiyam'])->name('niyam.add');
         Route::post('niyam/save', [niyamController::class, 'saveNiyam'])->name('niyam.save');
         Route::get('niyam/{id}/delete', [niyamController::class, 'deleteNiyam'])->name('niyam.delete');
+        Route::get('niyam/{id}/edit', [niyamController::class, 'editNiyam'])->name('niyam.edit');
+        Route::post('niyam/{id}/update', [niyamController::class, 'updateNiyam'])->name('niyam.update');
         Route::get('niyam/submissions', [niyamController::class, 'submissions'])->name('admin.niyamSubmissions');
         Route::get('niyam/result/{submissionId}', [niyamController::class, 'generateResult'])->name('admin.generateResult');
         Route::get('niyam/generateOverallResult', [niyamController::class, 'generateOverallResult'])->name('admin.niyam.generateResult');

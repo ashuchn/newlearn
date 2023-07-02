@@ -75,4 +75,27 @@ class niyamController extends Controller
         // return $data;
         return view('backend.niyam.overallReport', compact('data'));
     }
+
+    public function editNiyam($id)
+    {
+        $data = niyamHelper::editNiyam($id);
+        // return $data;
+        return view('backend.niyam.edit',compact('data'));
+    }
+
+    public function updateNiyam($id, Request $request)
+    {
+        $data = niyamHelper::updateNiyam($id, $request);
+        if(!$data) {
+            flash()->options([
+                'timeout' => 3000, // 3 seconds
+                'position' => 'top-center',
+            ])->addError('Some Error Occured!');
+        }
+        flash()->options([
+            'timeout' => 3000, // 3 seconds
+            'position' => 'top-center',
+        ])->addSuccess('Updated!');
+        return redirect()->route('niyam.index');
+    }
 }

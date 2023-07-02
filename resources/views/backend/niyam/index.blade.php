@@ -52,7 +52,7 @@
                                         <tr>
                                             <th style="width: 10%">S.No</th>
                                             <th>Niyam</th>
-                                            {{-- <th>Action</th> --}}
+                                            <th style="width: 20%">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -60,11 +60,14 @@
                                             <tr>
                                                 <td>{{ $key+1 }}</td>
                                                 <td>{{ $item->niyam_name }}</td>
-                                                {{-- <td>
+                                                <td class="d-flex justify-content-center">
                                                     <a href="{{ route('niyam.delete', ['id' => $item->id]) }}">
-                                                        <button class="btn btn-danger">Delete</button>
+                                                        <button class="mx-1 btn btn-danger btn-sm">Delete</button>
                                                     </a>
-                                                </td> --}}
+                                                    <a href="{{ route('niyam.edit', ['id' => $item->id]) }}">
+                                                        <button class="btn btn-light btn-sm">Edit</button>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

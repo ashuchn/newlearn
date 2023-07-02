@@ -83,4 +83,21 @@ class niyamHelper {
         return $result;
     }
 
+    public static function editNiyam($id)
+    {
+        $data = Niyam::find($id);
+        return $data;
+    }
+
+    public static function updateNiyam($id, $request)
+    {
+        $niyam = Niyam::find($id);
+        $niyam->niyam_name = $request->niyam_name;
+        if($niyam->update()){
+            return true; 
+        } else {
+            return false;
+        }
+    }
+
 }

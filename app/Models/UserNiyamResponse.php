@@ -16,7 +16,7 @@ class UserNiyamResponse extends Model
 
     public function niyam()
     {
-        return $this->belongsTo(Niyam::class);
+        return $this->belongsTo(Niyam::class)->withTrashed();
     }
     
 }
