@@ -22,7 +22,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <img src="{{ url('public/images/login_logo.png') }}" class="img-thumbnail" alt="login logo">
+    <img src="{{ url('public/images/Sahjanandi Aaradhana a.png') }}" class="img-thumbnail" alt="login logo">
   </div>
   <!-- /.login-logo -->
   <div class="card">
