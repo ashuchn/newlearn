@@ -6,6 +6,7 @@ use Validator;
 use Carbon\Carbon;
 use App\Enums\Role;
 use App\Models\User;
+use App\Models\State;
 use App\Enums\Gender;
 use Illuminate\Http\Request;
 use App\Helpers\CarbonHelper;
@@ -16,7 +17,11 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::where('role_id', '!=' , 1)->get();
+        $data = User::where('role_id', '!=' , 1)->with(['state'])->get();
+        $users = $data->map(function($user) {
+            $user->gender = $user->gender == 1 ? "Male" : "Female";
+            return $user;
+        });
         return view('backend.users.index', compact('users'));
     }
 

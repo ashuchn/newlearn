@@ -46,8 +46,12 @@
                                         <tr>
                                             <th>S.No</th>
                                             <th>Name</th>
+                                            <th>DOB</th>
+                                            <th>Gender</th>
                                             <th>Email</th>
                                             <th>Mobile</th>
+                                            <th>State</th>
+                                            <th>City</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -57,8 +61,12 @@
                                             <tr>
                                                 <td>{{ $i }}</td>
                                                 <td>{{ $item->name }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->date_of_birth)->format('d-m-Y') }}</td>
+                                                <td>{{ $item->gender }}</td>
                                                 <td>{{ $item->email }}</td>
                                                 <td>{{ $item->mobile }}</td>
+                                                <td>{{ $item->state->name ?? "" }}</td>
+                                                <td>{{ $item->city ?? "" }}</td>
                                                 <td>
                                                     <a href="{{ route('user.edit', ['id' => $item->id]) }}">
                                                         <button class="btn btn-primary">Edit</button>

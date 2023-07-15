@@ -60,4 +60,9 @@ class User extends AuthenticatableUser implements Authenticatable
     {
         return $this->belongsTo(UserMobile::class);
     }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class);
+    }
 }
