@@ -6,6 +6,7 @@ use Auth;
 use App\Models\Niyam;
 use App\Models\UserNiyam;
 use App\Helpers\niyamHelper;
+use App\Helpers\flashHelper;
 use Illuminate\Http\Request;
 use App\Models\UserNiyamResponse;
 use App\Http\Controllers\Controller;
@@ -30,17 +31,10 @@ class niyamController extends Controller
     {
         $data = niyamHelper::saveUserResponse($request);
         if(!$data['success']) {
-            flash()->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addError('Some Error Occured while submitting!');
+            flashHelper::errorResponse('Some Error Occured while submitting!');
             return back();
         } 
-
-        flash()->options([
-            'timeout' => 3000, // 3 seconds
-            'position' => 'top-center',
-        ])->addSuccess('Result Generated!');
+        flashHelper::successResponse('Result Generated!');
         return redirect()->route('user.generateResult',['submissionId' => $data['data']->id]);
     }
 

@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Validator;
 use App\Models\Niyam;
 use App\Models\UserNiyam;
-use App\Helpers\niyamHelper;
-use App\Models\UserNiyamResponse;
 use Illuminate\Http\Request;
+use App\Helpers\niyamHelper;
+use App\Helpers\flashHelper;
+use App\Models\UserNiyamResponse;
 use App\Http\Controllers\Controller;
 
 class niyamController extends Controller
@@ -30,10 +31,7 @@ class niyamController extends Controller
         ]);
 
         if($valid->fails()){
-            flash()->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addError($valid->errors()->first());
+            flashHelper::errorResponse($valid->errors()->first());
             return back();
         }
 
@@ -45,15 +43,10 @@ class niyamController extends Controller
     {
         $data = niyamHelper::deleteNiyam($id);
         if(!$data) {
-            flash()->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addError('Some Error Occured!');
+            flashHelper::errorResponse('Some Error Occured!');
+            return back();
         }
-        flash()->options([
-            'timeout' => 3000, // 3 seconds
-            'position' => 'top-center',
-        ])->addSuccess('Deleted!');
+        flashHelper::successResponse('Deleted!');
         return redirect()->route('niyam.index');
     }
 
@@ -87,15 +80,9 @@ class niyamController extends Controller
     {
         $data = niyamHelper::updateNiyam($id, $request);
         if(!$data) {
-            flash()->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addError('Some Error Occured!');
+            flashHelper::errorResponse('Some Error Occured!');
         }
-        flash()->options([
-            'timeout' => 3000, // 3 seconds
-            'position' => 'top-center',
-        ])->addSuccess('Updated!');
+        flashHelper::successResponse('Updated!');
         return redirect()->route('niyam.index');
     }
 }

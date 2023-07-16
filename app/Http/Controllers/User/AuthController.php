@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Enums\Gender;
 use App\Models\State;
 use App\Helpers\AuthHelper;
+use App\Helpers\flashHelper;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -34,25 +35,16 @@ class AuthController extends Controller
         
 
         if($valid->fails()) {
-            flash()->options([
-                'timeout' => 3000,
-                'position' => 'top-center',
-            ])->addError($valid->errors()->first());
+            flashHelper::errorResponse($valid->errors()->first());
             return back()->withErrors($valid)->withInput();
         }
 
         $validatedData = $valid->validated();
         if(Auth::attempt(['mobile' => $validatedData['mobile'], 'password' => $validatedData['password'] ])) {
-            flash()->options([
-                'timeout' => 3000,
-                'position' => 'top-center',
-            ])->addSuccess('Logged in! Choose Account to continue');
+            flashHelper::successResponse('Logged in! Choose Account to continue');
             return redirect()->route('accounts');
         }
-        flash()->options([
-            'timeout' => 3000,
-            'position' => 'top-center',
-        ])->addError('Invalid Credentials');
+        flashHelper::errorResponse('Invalid Credentials');
         return back();
     } 
 
@@ -77,15 +69,17 @@ class AuthController extends Controller
         ]);
 
         if($valid->fails()) {
-            flash()->addError($valid->errors()->first());
+            flashHelper::errorResponse($valid->errors()->first());
             return back()->withErrors($valid)->withInput();
         }
 
         $user = AuthHelper::register($valid->validated());
         if(Auth::attempt(['mobile' => $user->mobile, 'password' => $request->password])) {
-            return redirect()->route('accounts')->with('success','Logged in successfully!');
+            flashHelper::successResponse('Logged in successfully!');
+            return redirect()->route('accounts');
         } else {
-            return back()->with('err_msg', 'user created! Error while login.');
+            flashHelper::errorResponse('user created! Error while login!');
+            return back();
         }
 
     }
@@ -108,10 +102,7 @@ class AuthController extends Controller
         $data = AuthHelper::accounts($mobile);
         
         if(!$data) {
-            flash()->options([
-                'timeout' => 3000,
-                'position' => 'top-center',
-            ])->addError('No Accounts linked!');
+            flashHelper::errorResponse('No Accounts linked!');
         }
         return view('frontend.auth.accounts', compact('data'));
 
@@ -124,16 +115,10 @@ class AuthController extends Controller
         // return Auth::attempt(['mobile' => $user->mobile, 'password' => $user->password]);
         if(Auth::loginUsingId($user->id)) {
             \Session::put('accountChoosen', true);
-            flash()->options([
-                'timeout' => 3000,
-                'position' => 'top-center',
-            ])->addSuccess('Logged In!');
+            flashHelper::successResponse('Logged In!');
             return redirect()->route('dashboard');
         } else {
-            flash()->options([
-                'timeout' => 3000,
-                'position' => 'top-center',
-            ])->addError('Some Error Occured!');
+            flashHelper::errorResponse('Some Error Occured!');
             return back();
         }
     }

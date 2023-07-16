@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Helpers\flashHelper;
 
 class checkAccountIsChoosen
 {
@@ -20,17 +21,11 @@ class checkAccountIsChoosen
             if(\Session::get('accountChoosen') == true){
                 return $next($request);
             } else {
-                flash()->options([
-                    'timeout' => 3000,
-                    'position' => 'top-center',
-                ])->addError('you need to choose account first!');
+                flashHelper::errorResponse('you need to choose account first!');
                 return redirect()->route('login');
             }
         }  else {
-            flash()->options([
-                'timeout' => 3000,
-                'position' => 'top-center',
-            ])->addError('you need to choose account first!');
+            flashHelper::errorResponse('you need to choose account first!');
             return redirect()->route('login');
         }
         

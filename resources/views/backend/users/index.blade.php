@@ -35,7 +35,7 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-md-12">
 
 
                         <div class="card">
@@ -46,7 +46,7 @@
                                 </a>
                             </div>
                             <div class="card-body">
-                                <table id="example" class="table table-bordered table-striped table-responsive-sm">
+                                <table id="example" class="table table-bordered table-striped table-responsive">
                                     <thead>
                                         <tr>
                                             <th>S.No</th>

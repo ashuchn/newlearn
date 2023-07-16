@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use App\Helpers\flashHelper;
 
 class Authenticate extends Middleware
 {
@@ -15,10 +16,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            flash()->options([
-                'timeout' => 3000,
-                'position' => 'top-center',
-            ])->addError('Login First!');
+            flashHelper::errorResponse('Login First!');
             return route('login');
         }
     }

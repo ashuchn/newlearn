@@ -13,6 +13,7 @@ use App\Enums\Gender;
 use Illuminate\Http\Request;
 use App\Exports\UsersExport;
 use App\Helpers\CarbonHelper;
+use App\Helpers\flashHelper;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
@@ -55,16 +56,16 @@ class UserController extends Controller
         ]);
 
         if($valid->fails()) {
-            flash()->addError($valid->errors()->first());
+            flashHelper::errorResponse($valid->errors()->first());
             return back();
         }
 
         $user->fill($valid->validated());
         if($user->save()) {
-            flash()->addSuccess('User Edited Successfully');
+            flashHelper::successResponse('User Edited Successfully');
             return redirect()->route('user.edit', ['id'=>$user->id]);
         } else {
-            flash()->addError('Some error occured!');
+            flashHelper::errorResponse('Some error occured!');
             return redirect()->route('user.edit', ['id'=>$user->id]);
         }
     }
@@ -82,7 +83,7 @@ class UserController extends Controller
         ]);
 
         if($valid->fails()) {
-            flash()->addError($valid->errors()->first());
+            flashHelper::errorResponse($valid->errors()->first());
             return back();
         }
         
@@ -91,16 +92,16 @@ class UserController extends Controller
         $currentPassword    = $request->password;
         $oldPassword        = $user->password;
         if(Hash::check($currentPassword, $oldPassword)) {
-            flash()->addError("Old Password and New Password are same!");
+            flashHelper::errorResponse('Old Password and New Password are same!');
             return back();
         }
         $user->password = Hash::make($request->password);
         $user->password_last_changed_at = NOW();
         if($user->update()) {
-            flash()->addSuccess('Password updated Successfully');
+            flashHelper::successResponse('Password updated Successfully');
             return redirect()->route('user.edit', ['id'=>$id]);
         } else {
-            flash()->addError('Unable to update password.');
+            flashHelper::errorResponse('Unable to update password!');
             return redirect()->route('user.edit', ['id'=>$id]);
         }
 
