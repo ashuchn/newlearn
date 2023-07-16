@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use DB;
+use Hash;
 use Validator;
 use Carbon\Carbon;
 use App\Enums\Role;
@@ -21,7 +22,7 @@ class UserController extends Controller
     {
         $data = DB::select(
             DB::raw(
-                'SELECT u.*, s.name as state FROM `users` as u left join states as s on s.id = u.state_id;'
+                'SELECT u.*, s.name as state FROM `users` as u left join states as s on s.id = u.state_id where u.role_id != 1;'
                 )
             );
 
@@ -34,7 +35,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->role = Role::getRoleById($user->role_id);
         $user->gender_name = Gender::getGenderById($user->gender);
         $user->joined_on = Carbon::parse($user->created_at)->toDayDateTimeString();
@@ -61,17 +62,48 @@ class UserController extends Controller
         $user->fill($valid->validated());
         if($user->save()) {
             flash()->addSuccess('User Edited Successfully');
-            return redirect()->route('users.edit', ['id',$user->id]);
+            return redirect()->route('user.edit', ['id'=>$user->id]);
         } else {
             flash()->addError('Some error occured!');
-            return redirect()->route('users.edit', ['id',$user->id]);
+            return redirect()->route('user.edit', ['id'=>$user->id]);
         }
     }
 
     public function exportUsers()
     {
-        // return Excel::download(new UsersExport, 'users.xlsx');
         return new UsersExport();
+    }
+
+    public function changePassword(Request $request, $id)
+    {
+        $valid = Validator::make($request->all(),[
+            "password"          =>  "required|required_with:confirm_password|same:confirm_password",
+            "confirm_password"  =>  "required",
+        ]);
+
+        if($valid->fails()) {
+            flash()->addError($valid->errors()->first());
+            return back();
+        }
+        
+        $user = User::find($id);
+
+        $currentPassword    = $request->password;
+        $oldPassword        = $user->password;
+        if(Hash::check($currentPassword, $oldPassword)) {
+            flash()->addError("Old Password and New Password are same!");
+            return back();
+        }
+        $user->password = Hash::make($request->password);
+        $user->password_last_changed_at = NOW();
+        if($user->update()) {
+            flash()->addSuccess('Password updated Successfully');
+            return redirect()->route('user.edit', ['id'=>$id]);
+        } else {
+            flash()->addError('Unable to update password.');
+            return redirect()->route('user.edit', ['id'=>$id]);
+        }
+
     }
 
 }

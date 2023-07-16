@@ -23,6 +23,7 @@ class User extends AuthenticatableUser implements Authenticatable
         'email',
         'mobile',
         'password',
+        'password_last_changed_at'
     ];
 
     /**

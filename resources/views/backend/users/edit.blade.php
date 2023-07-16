@@ -1,9 +1,9 @@
 @extends('backend.layout.layout')
 @section('title', '| Edit User')
 
-@section('css')
+{{-- @section('css')
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-@endsection
+@endsection --}}
 
 @section('content')
     <div class="content-wrapper">
@@ -113,6 +113,31 @@
 
                     </div>
                     <!-- /.card -->
+                </div>
+
+                <div class="card card-success card-outline">
+                    <div class="card-header">Change Password</div>
+                    <form method="post" action="{{ route('admin.user.changePassword', ['id'=>$user->id]) }}">
+                        @csrf
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 form-group" >
+                                    <label for="password">New Password:</label>
+                                    <input type="password" id="password" class="form-control" name="password" placeholder="New Password">
+                                </div>
+                                <div class="col-md-6 form-group" >
+                                    <label for="confirm_password">Confirm Password:</label>
+                                    <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Update Password" class="btn btn-primary btn-sm">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="card-footer">
+                        <span class="text-danger">Password Last changed at: {{ $user->password_last_changed_at }}</span>
+                    </div>
                 </div>
                 <!-- /.card -->
 
