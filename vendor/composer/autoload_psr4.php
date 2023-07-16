@@ -100,6 +100,7 @@ return array(
     'Cron\\' => array($vendorDir . '/dragonmantank/cron-expression/src/Cron'),
     'Composer\\Semver\\' => array($vendorDir . '/composer/semver/src'),
     'Complex\\' => array($vendorDir . '/markbaker/complex/classes/src'),
+    'Clockwork\\' => array($vendorDir . '/itsgoingd/clockwork/Clockwork'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
     'App\\' => array($baseDir . '/app', $vendorDir . '/laravel/pint/app'),
