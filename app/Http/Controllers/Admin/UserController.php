@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DB;
 use Validator;
 use Carbon\Carbon;
 use App\Enums\Role;
@@ -9,6 +10,7 @@ use App\Models\User;
 use App\Models\State;
 use App\Enums\Gender;
 use Illuminate\Http\Request;
+use App\Exports\UsersExport;
 use App\Helpers\CarbonHelper;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
@@ -17,8 +19,13 @@ class UserController extends Controller
 {
     public function index()
     {
-        $data = User::where('role_id', '!=' , 1)->with(['state'])->get();
-        $users = $data->map(function($user) {
+        $data = DB::select(
+            DB::raw(
+                'SELECT u.*, s.name as state FROM `users` as u left join states as s on s.id = u.state_id;'
+                )
+            );
+
+        $users = collect($data)->map(function($user) {
             $user->gender = $user->gender == 1 ? "Male" : "Female";
             return $user;
         });
@@ -59,6 +66,12 @@ class UserController extends Controller
             flash()->addError('Some error occured!');
             return redirect()->route('users.edit', ['id',$user->id]);
         }
+    }
+
+    public function exportUsers()
+    {
+        // return Excel::download(new UsersExport, 'users.xlsx');
+        return new UsersExport();
     }
 
 }

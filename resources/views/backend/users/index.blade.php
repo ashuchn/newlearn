@@ -60,12 +60,12 @@
                                         @foreach ($users as $item)
                                             <tr>
                                                 <td>{{ $i }}</td>
-                                                <td>{{ $item->name }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($item->date_of_birth)->format('d-m-Y') }}</td>
-                                                <td>{{ $item->gender }}</td>
-                                                <td>{{ $item->email }}</td>
-                                                <td>{{ $item->mobile }}</td>
-                                                <td>{{ $item->state->name ?? "" }}</td>
+                                                <td>{{ $item->name ?? "" }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->date_of_birth)->format('d-m-Y') ?? "" }}</td>
+                                                <td>{{ $item->gender ?? "" }}</td>
+                                                <td>{{ $item->email ?? "" }}</td>
+                                                <td>{{ $item->mobile ?? "" }}</td>
+                                                <td>{{ $item->state ?? "" }}</td>
                                                 <td>{{ $item->city ?? "" }}</td>
                                                 <td>
                                                     <a href="{{ route('user.edit', ['id' => $item->id]) }}">
