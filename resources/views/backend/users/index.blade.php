@@ -40,6 +40,11 @@
 
                         <div class="card">
                             <!-- /.card-header -->
+                            <div class="card-header">
+                                <a href="{{ route('users.export') }}">
+                                    <button class="btn btn-light btn-sm">Export Users</button>
+                                </a>
+                            </div>
                             <div class="card-body">
                                 <table id="example" class="table table-bordered table-striped table-responsive-sm">
                                     <thead>
