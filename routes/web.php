@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\QuestionAnswerController;
 use App\Http\Controllers\User\TapController as UserTapController;
 use App\Http\Controllers\User\niyamController as UserNiyamController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\SuggestionController as AdminSuggestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -143,6 +144,10 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('tap/save',[TapController::class, 'save'])->name('tap.save');
         Route::get('tap/quiz/{quizId}/report', [TapController::class, 'generateReport'])->name('tap.quiz.generateReport');
         Route::get('tap/calculateOverallResults', [TapController::class, 'calculateOverallResults'])->name('tao.calculateOverallResults');
+
+        // suggestion module
+        Route::get('suggestion/index', [AdminSuggestionController::class, 'index'])->name('admin.suggestion.index');
+        Route::get('suggestion/{id}', [AdminSuggestionController::class, 'view'])->name('admin.suggestion.view');
         
     });
     Route::get('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');

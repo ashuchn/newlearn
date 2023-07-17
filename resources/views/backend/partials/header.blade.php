@@ -110,6 +110,12 @@
                 </a>
               </li>
               <li class="nav-item ">
+                <a href="{{ route('admin.suggestion.index') }}" class="nav-link text-white {{ Route::is('admin.suggestion.index') ? 'active' : '' }}">
+                    <i class="fa-solid fa-regular fa-mobile"></i>
+                    <p>Suggestions</p>
+                </a>
+              </li>
+              <li class="nav-item ">
                 <a href="{{ route('admin.logout') }}" class="nav-link text-white {{ Route::is('admin.logout') ? 'active' : '' }}">
                     <i class="nav-icon fa-regular fa-user"></i>
                     <p>Logout</p>
