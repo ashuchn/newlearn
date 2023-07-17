@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\TapController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\niyamController;
 use App\Http\Controllers\User\TapasayaController;
+use App\Http\Controllers\User\SuggestionController;
 use App\Http\Controllers\Admin\QuestionAnswerController;
 use App\Http\Controllers\User\TapController as UserTapController;
 use App\Http\Controllers\User\niyamController as UserNiyamController;
@@ -82,6 +83,10 @@ Route::middleware(['auth'])->group(function () {
             Route::post('tap/submit', [UserTapController::class, 'submitQuiz'])->name('tap.submit');
         });
         Route::get('tap/response/{tapResponseId?}', [UserTapController::class, 'quizResult'])->name('tap.quiz.result');
+
+        // suggestion module
+        Route::get('suggestion/index', [SuggestionController::class, 'index'])->name('suggestion.index');
+        Route::post('suggestion/save', [SuggestionController::class, 'save'])->name('suggestion.save');
     });
 });
 Route::get('logout', [AuthController::class,'logout'])->name('logout');
