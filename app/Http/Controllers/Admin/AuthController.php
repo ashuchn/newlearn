@@ -6,6 +6,7 @@ use Validator;
 use App\Models\User;
 use App\Models\ContactUs;
 use Illuminate\Http\Request;
+use App\Helpers\flashHelper;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -71,7 +72,7 @@ class AuthController extends Controller
         ]);
 
         if($valid->fails()) {
-            flash()->addError($valid->errors()->first());
+            flashHelper::errorResponse($valid->errors()->first());
             return back();
         }
         
@@ -80,11 +81,11 @@ class AuthController extends Controller
         $update->email = $request->email;
         $update->mobile_number = $request->mobile_number;
         if($update->update()) {
-            return redirect()->route('admin.contactUs')->withSuccess('Details Updated!');
+            flashHelper::successResponse('Details Updated!');
+            return redirect()->route('admin.contactUs');
         } else {
-            return redirect()->route('admin.contactUs')->withError('Some error occured!');
+            flashHelper::errorResponse('Some error occured!');
+            return redirect()->route('admin.contactUs');
         }
-        
-
     }
 }

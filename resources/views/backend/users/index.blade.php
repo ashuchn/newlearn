@@ -35,19 +35,28 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-md-12">
 
 
                         <div class="card">
                             <!-- /.card-header -->
+                            <div class="card-header">
+                                <a href="{{ route('users.export') }}">
+                                    <button class="btn btn-light btn-sm">Export Users</button>
+                                </a>
+                            </div>
                             <div class="card-body">
-                                <table id="example" class="table table-bordered table-striped table-responsive-sm">
+                                <table id="example" class="table table-bordered table-striped table-responsive">
                                     <thead>
                                         <tr>
                                             <th>S.No</th>
                                             <th>Name</th>
+                                            <th>DOB</th>
+                                            <th>Gender</th>
                                             <th>Email</th>
                                             <th>Mobile</th>
+                                            <th>State</th>
+                                            <th>City</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -56,9 +65,13 @@
                                         @foreach ($users as $item)
                                             <tr>
                                                 <td>{{ $i }}</td>
-                                                <td>{{ $item->name }}</td>
-                                                <td>{{ $item->email }}</td>
-                                                <td>{{ $item->mobile }}</td>
+                                                <td>{{ $item->name ?? "" }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->date_of_birth)->format('d-m-Y') ?? "" }}</td>
+                                                <td>{{ $item->gender ?? "" }}</td>
+                                                <td>{{ $item->email ?? "" }}</td>
+                                                <td>{{ $item->mobile ?? "" }}</td>
+                                                <td>{{ $item->state ?? "" }}</td>
+                                                <td>{{ $item->city ?? "" }}</td>
                                                 <td>
                                                     <a href="{{ route('user.edit', ['id' => $item->id]) }}">
                                                         <button class="btn btn-primary">Edit</button>

@@ -23,6 +23,7 @@ class User extends AuthenticatableUser implements Authenticatable
         'email',
         'mobile',
         'password',
+        'password_last_changed_at'
     ];
 
     /**
@@ -59,5 +60,10 @@ class User extends AuthenticatableUser implements Authenticatable
     public function mobile()
     {
         return $this->belongsTo(UserMobile::class);
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(State::class);
     }
 }

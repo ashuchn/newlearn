@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use DB;
 use Validator;
-use App\Helpers\TapHelper;
 use App\Models\User;
+use App\Helpers\TapHelper;
 use App\Models\TapResponse;
 use App\Models\TapQuestion;
 use Illuminate\Http\Request;
+use App\Helpers\flashHelper;
 use App\Http\Controllers\Controller;
 
 class TapController extends Controller
@@ -33,27 +34,16 @@ class TapController extends Controller
         ]);
 
         if($valid->fails()) {
-            flash()
-            ->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addError($valid->errors()->first());
+            flashHelper::errorResponse($valid->errors()->first());
             return back()->withInput();
         }
 
         $data = TapHelper::create($valid->validated());
         if(!$data) {
-            flash()
-            ->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addError('Error while saving data!');
+            flashHelper::errorResponse('Error while saving data!');
             return back();
         }
-        flash()->options([
-            'timeout' => 3000, // 3 seconds
-            'position' => 'top-center',
-        ])->addSuccess('Saved!');
+        flashHelper::successResponse('Saved!');
         return redirect()->route('tap.index');
     } 
 

@@ -100,6 +100,8 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('users',[UserController::class, 'index'])->name('users.index');
         Route::get('user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
         Route::put('user/{id}/update', [UserController::class, 'update'])->name('user.update');
+        Route::get('users/export', [UserController::class, 'exportUsers'])->name('users.export');
+        Route::post('user/{id}/changePassword',[UserController::class, 'changePassword'])->name('admin.user.changePassword');
 
         //quiz module
         Route::get('quiz', [QuestionAnswerController::class, 'index'])->name('quiz.index');

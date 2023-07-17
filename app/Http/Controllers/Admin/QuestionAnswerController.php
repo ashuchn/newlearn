@@ -8,6 +8,7 @@ use App\Models\Quiz;
 use App\Models\Answer;
 use App\Models\Question;
 use App\Helpers\QuizHelper;
+use App\Helpers\flashHelper;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -32,27 +33,16 @@ class QuestionAnswerController extends Controller
         ]);
 
         if($valid->fails()) {
-            flash()
-            ->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addError($valid->errors()->first());
+            flashHelper::errorResponse($valid->errors()->first());
             return back()->withInput();
         }
 
         $data = QuizHelper::create($valid->validated());
         if(!$data) {
-            flash()
-            ->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addError('Error while saving data!');
+            flashHelper::errorResponse('Error while saving data!');
             return back();
         }
-        flash()->options([
-            'timeout' => 3000, // 3 seconds
-            'position' => 'top-center',
-        ])->addSuccess('Saved!');
+        flashHelper::successResponse('Saved!');
         return redirect()->route('quiz.index');
     }
 
@@ -67,16 +57,10 @@ class QuestionAnswerController extends Controller
         $data = QuizHelper::quizQuestionDelete($questionId);
 
         if($data) {
-            flash()->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addSuccess('Question deleted!');
+            flashHelper::successResponse('Question deleted!');
             return back();
         } else {
-            flash()->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addError('Some error occured!');
+            flashHelper::errorResponse('Some error occured!');
             return back();
         }
     }
@@ -95,26 +79,17 @@ class QuestionAnswerController extends Controller
         ]);
 
         if($valid->fails()) {
-            flash()->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addError($valid->errors()->first());
+            flashHelper::errorResponse($valid->errors()->first());
             return back();
         };
         $data = QuizHelper::saveQuestionAnswer($quizId, $valid->validated());
 
         if(!$data){
-            flash()->options([
-                'timeout' => 3000, // 3 seconds
-                'position' => 'top-center',
-            ])->addError('Some Error Occured');
+            flashHelper::errorResponse('Some Error Occured!');
             return back();
         }
-        flash()->options([
-            'timeout' => 3000, // 3 seconds
-            'position' => 'top-center',
-        ])->addSuccess('Question and answers saved successfully');
-        
+        flashHelper::successResponse('Question and answers saved successfully!');
+
         // Redirect or perform any desired action
         return redirect()->route('quiz.questions', ['quizId' => $quizId]);
 
