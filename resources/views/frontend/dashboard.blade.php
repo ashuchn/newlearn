@@ -1,6 +1,6 @@
 @extends('frontend.layout.layout')
 @section('content')
-    {{-- put all the content inside content-wrapper class --}}
+{{-- put all the content inside content-wrapper class --}}
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
@@ -62,7 +62,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
-                        <a href="" class="small-box-footer">
+                        <a href="{{ route('notice.index') }}" class="small-box-footer">
                             <div class="info-box bg-gradient-primary">
                                 <span class="info-box-icon"><i class="fa-solid fa-bell"></i></span>
                                 <div class="info-box-content">
@@ -72,7 +72,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
-                        <a href="" class="small-box-footer">
+                        <a href="{{ route('suggestion.index') }}" class="small-box-footer">
                             <div class="info-box bg-gradient-light">
                                 <span class="info-box-icon"><i class="fa-solid fa-clipboard-question"></i></span>
                                 <div class="info-box-content">

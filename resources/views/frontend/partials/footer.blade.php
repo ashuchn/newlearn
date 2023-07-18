@@ -5,7 +5,7 @@
       Anything you want
     </div> --}}
     <!-- Default to the left -->
-    <strong>Developed by Ashutosh</strong>
+    <strong>Developed by Ashutosh and Bhavesh</strong>
   </footer>
 </div>
 <!-- ./wrapper -->

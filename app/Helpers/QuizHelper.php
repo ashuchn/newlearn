@@ -80,7 +80,7 @@ class QuizHelper {
     {
         $correctAnswers     = 0;
         $incorrectAnswers   = 0;
-        $perAnswerMarks     = 5;
+        $perAnswerMarks     = 1;
         $totalQuestions     = Question::where('quiz_id', $quiz->id)->count();
         $userResponse       = UserResponse::where([
             ['quiz_id', $quiz->id],

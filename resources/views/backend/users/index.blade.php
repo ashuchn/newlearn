@@ -46,42 +46,42 @@
                                 </a>
                             </div>
                             <div class="card-body">
-                                <table id="example" class="table table-bordered table-striped table-responsive">
-                                    <thead>
-                                        <tr>
-                                            <th>S.No</th>
-                                            <th>Name</th>
-                                            <th>DOB</th>
-                                            <th>Gender</th>
-                                            <th>Email</th>
-                                            <th>Mobile</th>
-                                            <th>State</th>
-                                            <th>City</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php $i = 1; @endphp
-                                        @foreach ($users as $item)
+                                <div class="table-responsive">
+                                    <table id="example" class="table table-bordered table-striped ">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $i }}</td>
-                                                <td>{{ $item->name ?? "" }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($item->date_of_birth)->format('d-m-Y') ?? "" }}</td>
-                                                <td>{{ $item->gender ?? "" }}</td>
-                                                <td>{{ $item->email ?? "" }}</td>
-                                                <td>{{ $item->mobile ?? "" }}</td>
-                                                <td>{{ $item->state ?? "" }}</td>
-                                                <td>{{ $item->city ?? "" }}</td>
-                                                <td>
-                                                    <a href="{{ route('user.edit', ['id' => $item->id]) }}">
-                                                        <button class="btn btn-primary">Edit</button>
-                                                    </a>
-                                                </td>
+                                                <th>S.No</th>
+                                                <th>Name</th>
+                                                <th>DOB</th>
+                                                <th>Gender</th>
+                                                <th>Email</th>
+                                                <th>Mobile</th>
+                                                <th>State</th>
+                                                <th>City</th>
+                                                <th>Action</th>
                                             </tr>
-                                            @php $i++ @endphp
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($users as $key=>$item)
+                                                <tr>
+                                                    <td>{{ $key+1 }}</td>
+                                                    <td>{{ $item->name ?? "" }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($item->date_of_birth)->format('d-m-Y') ?? "" }}</td>
+                                                    <td>{{ $item->gender ?? "" }}</td>
+                                                    <td>{{ $item->email ?? "" }}</td>
+                                                    <td>{{ $item->mobile ?? "" }}</td>
+                                                    <td>{{ $item->state ?? "" }}</td>
+                                                    <td>{{ $item->city ?? "" }}</td>
+                                                    <td>
+                                                        <a href="{{ route('user.edit', ['id' => $item->id]) }}">
+                                                            <button class="btn btn-primary">Edit</button>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <!-- /.card-body -->
                         </div>

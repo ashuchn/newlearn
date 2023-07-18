@@ -111,8 +111,6 @@ class AuthController extends Controller
     public function accountLogin(Request $request)
     {
         $user = User::find($request->model);
-        // return Auth::loginUsingId($user->id);
-        // return Auth::attempt(['mobile' => $user->mobile, 'password' => $user->password]);
         if(Auth::loginUsingId($user->id)) {
             \Session::put('accountChoosen', true);
             flashHelper::successResponse('Logged In!');

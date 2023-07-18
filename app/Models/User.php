@@ -66,4 +66,9 @@ class User extends AuthenticatableUser implements Authenticatable
     {
         return $this->belongsTo(State::class);
     }
+
+    public function suggestions()
+    {
+        return $this->hasMany(Suggestion::class);
+    }
 }

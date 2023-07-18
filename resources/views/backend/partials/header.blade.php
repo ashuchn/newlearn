@@ -106,7 +106,19 @@
               <li class="nav-item ">
                 <a href="{{ route('admin.contactUs') }}" class="nav-link text-white {{ Route::is('admin.contactUs') ? 'active' : '' }}">
                     <i class="fa-solid fa-regular fa-mobile"></i>
-                    <p>Contact Us</p>
+                      <p>Contact Us</p>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a href="{{ route('admin.suggestion.index') }}" class="nav-link text-white {{ Route::is('admin.suggestion.index') ? 'active' : '' }}">
+                  <i class="fa-solid fa-users-line"></i>
+                    <p>Suggestions</p>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a href="{{ route('admin.notice.index') }}" class="nav-link text-white {{ Route::is('admin.notice.index') ? 'active' : '' }}">
+                  <i class="fa-solid fa-envelope"></i>
+                    <p>Notices</p>
                 </a>
               </li>
               <li class="nav-item ">
