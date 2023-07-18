@@ -6,6 +6,7 @@ use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\Admin\TapController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\niyamController;
+use App\Http\Controllers\Admin\NoticeController;
 use App\Http\Controllers\User\TapasayaController;
 use App\Http\Controllers\User\SuggestionController;
 use App\Http\Controllers\Admin\QuestionAnswerController;
@@ -148,6 +149,16 @@ Route::group(['prefix' => 'admin'], function(){
         // suggestion module
         Route::get('suggestion/index', [AdminSuggestionController::class, 'index'])->name('admin.suggestion.index');
         Route::get('suggestion/{id}', [AdminSuggestionController::class, 'view'])->name('admin.suggestion.view');
+
+        // notice module
+        Route::get('notices', [NoticeController::class, 'index'])->name('admin.notice.index');
+        Route::get('notice/create', [NoticeController::class, 'create'])->name('admin.notice.create');
+        Route::post('notice/save', [NoticeController::class, 'save'])->name('admin.notice.save');
+        Route::get('notice/{id}', [NoticeController::class, 'view'])->name('admin.notice.view');
+        Route::get('notice/{id}/delete', [NoticeController::class, 'delete'])->name('admin.notice.delete');
+        Route::get('notice/{id}/edit', [NoticeController::class, 'edit'])->name('admin.notice.edit');
+        Route::post('notice/{id}/update', [NoticeController::class, 'update'])->name('admin.notice.update');
+
         
     });
     Route::get('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
