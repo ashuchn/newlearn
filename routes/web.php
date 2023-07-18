@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\QuestionAnswerController;
 use App\Http\Controllers\User\TapController as UserTapController;
 use App\Http\Controllers\User\niyamController as UserNiyamController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\User\NoticeController as UserNoticeController;
 use App\Http\Controllers\Admin\SuggestionController as AdminSuggestionController;
 
 /*
@@ -89,6 +90,10 @@ Route::middleware(['auth'])->group(function () {
         // suggestion module
         Route::get('suggestion/index', [SuggestionController::class, 'index'])->name('suggestion.index');
         Route::post('suggestion/save', [SuggestionController::class, 'save'])->name('suggestion.save');
+
+        // notice module
+        Route::get('notices', [UserNoticeController::class, 'index'])->name('notice.index');
+
     });
 });
 Route::get('logout', [AuthController::class,'logout'])->name('logout');

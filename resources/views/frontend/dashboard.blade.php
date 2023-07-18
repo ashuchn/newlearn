@@ -62,7 +62,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
-                        <a href="" class="small-box-footer">
+                        <a href="{{ route('notice.index') }}" class="small-box-footer">
                             <div class="info-box bg-gradient-primary">
                                 <span class="info-box-icon"><i class="fa-solid fa-bell"></i></span>
                                 <div class="info-box-content">
