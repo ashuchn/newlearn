@@ -35,7 +35,7 @@
                                     <div class="info-box bg-gradient-info">
                                         <span class="info-box-icon"><i class="far fa-question"></i></span>
                                         <div class="info-box-content">
-                                          <span class="info-box-text">Today's Quiz</span>
+                                          <span class="info-box-text">Today's Tap</span>
                                         </div>
                                     </div>
                                 </a>

@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                             <li class="breadcrumb-item active">Niyam Result</li>
                         </ol>
                     </div>
@@ -29,6 +29,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-left align-items-right">
+                                    <a href="{{ route('user.niyam.pastSubmission') }}">
+                                        <button class="btn btn-warning mx-2">Go Back</button>
+                                    </a>
+                                    <button class="btn btn-primary" onclick="window.print();"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+                                </div>
+                            </div>
                             <div class="card-body">
                                 <table class="table table-bordered">
                                     <thead>
