@@ -77,3 +77,11 @@
         </section>
     </div>
 @endsection
+@section('script')
+    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
+    </script>
+@endsection

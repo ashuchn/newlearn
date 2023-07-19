@@ -77,19 +77,20 @@ class QnaController extends Controller
         $perAnswerMarks     = 1;
         $totalQuestions     = Question::where('quiz_id', $quizId)->count();
 
-        $submittedAnswers   = UserAnswer::where('user_response_id', $userResponseId->id)->pluck('answer_id');
-        // return $submittedAnswers;
+        $questionAnswers = Quiz::with('questions.answers')->findOrFail($quizId);
+        // return $questionAnswers;
+        $submittedAnswers   = UserAnswer::where('user_response_id', $userResponseId->id)->get();
         foreach($submittedAnswers as $answer) {
-            $isCorrect = Answer::where('id', $answer)->where('is_correct', 1)->exists();
+            $isCorrect = Answer::where('id', $answer->answer_id)->where('is_correct', 1)->exists();
             if ($isCorrect) {
                 $correctAnswers++;
             } else {
                 $incorrectAnswers++;
             }
         }
-
+        $showDetailedResult = \Carbon\Carbon::parse($quiz->start_date)->format('Y-m-d') != \Carbon\Carbon::now()->format('Y-m-d');
         $totalMarks = $correctAnswers * $perAnswerMarks;
-        return view('frontend.quiz.result', compact('totalMarks','totalQuestions','incorrectAnswers','correctAnswers','userResponseId','quiz'));
+        return view('frontend.quiz.result', compact('showDetailedResult','questionAnswers','submittedAnswers','totalMarks','totalQuestions','incorrectAnswers','correctAnswers','userResponseId','quiz'));
     }
 
     public function pastSubmissions()
