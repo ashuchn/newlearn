@@ -4,6 +4,17 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="{{ url('assets/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <style>
+        /* Style for the correct answer radio button */
+        .input.text-success[type="radio"]:checked {
+            border-color: #28a745; /* Green color */
+        }
+
+        /* Style for the wrong answer radio button */
+        .form-check-input.text-danger:checked {
+            border-color: #dc3545; /* Red color */
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -33,7 +44,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex justify-content-left align-items-right">
-                                    <a href="{{ route('user.todayQuiz') }}"">
+                                    <a href="{{ route('user.todayQuiz') }}">
                                         <button class="btn btn-warning mx-2">Go Back</button>
                                     </a>
                                     <button class="btn btn-primary" onclick="window.print();"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
@@ -64,7 +75,7 @@
                                     </tr>
                                     <tr>
                                         <td><b>Submitted at:</b></td>
-                                        <td>{{ \Carbon\Carbon::parse($userResponseId->created_at)->format('d-m-Y h:i')}}</td>
+                                        <td>{{ \Carbon\Carbon::parse($userResponseId->created_at)->format('d-m-Y h:i A') }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -72,6 +83,46 @@
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
+                        @if($showDetailedResult)
+                        <div class="card">
+                            <!-- /.card-header -->
+                            <div class="card-header">
+                               <h4>Detailed Result</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    @foreach ($questionAnswers->questions as $i => $item)
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header d-flex">
+                                                        <p> {{ $i+1 }}. {{ $item->question }}</p>
+                                                </div>
+                                                <div class="card-body">
+                                                    @foreach ($item->answers as $key=>$answer)
+                                                    <div class="row">
+                                                         <div class="col-md-6">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="answer[{{ $answer->id }}]"
+                                                                    id="answer[{{ $answer->id }}]"
+                                                                    {{ $answer->is_correct == 1 ?  'checked' : '' }} disabled>
+                                                                <label class="form-check-label"
+                                                                    for="answer[{{ $answer->id }}]">{{$key+1}}. {{ $answer->answer_text }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>  
+                                                    @endforeach
+                                                    <p>Your Answer: {{ $submittedAnswers[$i]?->answer?->answer_text }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        @endif
+                        
                     </div>
                     <!-- /.col -->
                 </div>
