@@ -21,7 +21,7 @@
                             <div class="info-box bg-gradient-info">
                                 <span class="info-box-icon"><i class="far fa-question"></i></span>
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Question and Answers</span>
+                                    <span class="info-box-text">Pravachan Question and Answers</span>
                                 </div>
                             </div>
                         </a>
