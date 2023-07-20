@@ -48,7 +48,7 @@
                                     </tr>
                                     <tr>
                                         <td><b>Submitted at:</b></td>
-                                        <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d-m-Y h:i')}}</td>
+                                        <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d-m-Y h:i A')}}</td>
                                     </tr>
                                     </tbody>
                                 </table>

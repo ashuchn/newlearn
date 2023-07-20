@@ -27,60 +27,27 @@
   </div>
   <!-- /.login-logo -->
   <div class="card">
-    <div class="card-body login-card-body">
+    <div class="card-body">
         @if (session()->has('err_msg'))
             <span class="text-danger">{{ session()->get('err_msg') }}</span>
         @endif
         <div class="login-logo">
           <a href="#"><b>आराधक लॉग इन</b></a>
         </div>
-      <p class="login-box-msg">Sign in to start your session</p>
+        <ul class="text-danger">
+          <li>Please do not include +91 or 0 before Mobile Number</li>
+        </ul>
 
-      {{-- <form action="{{ route('login.post') }}" method="post">
-        <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control @error('email') ? ' is-invalid' : '' @enderror" placeholder="Email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-            @error('email')
-                <span class="text-danger">{{ $message }}</span>
-            @enderror
-		    @csrf
-        <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control @error('productName') ? ' is-invalid' : '' @enderror" placeholder="Password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-            @error('password')
-                <span class="text-danger">{{ $message }}</span>
-            @enderror
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
-          </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form> --}}
       <form action="{{ route('login.post') }}" method="post">
         @csrf
         <label for="email">Mobile Number</label>
         <div class="input-group mb-3">
-            <input type="text" name="mobile" class="form-control @error('mobile') is-invalid @enderror" placeholder="Enter registered Mobile Number">
+          <div class="input-group-append">
+            <div class="input-group-text">
+                +91
+            </div>
+          </div>
+            <input type="text" name="mobile" maxlength="10"  class="form-control @error('mobile') is-invalid @enderror" placeholder="Enter registered Mobile Number">
             <div class="input-group-append">
                 <div class="input-group-text">
                     <span class="fas fa-envelope"></span>
