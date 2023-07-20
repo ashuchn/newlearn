@@ -83,7 +83,7 @@
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
-                        @if($showDetailedResult)
+                        @if($showDetailedResult || Auth::user()->role_id == 1)
                         <div class="card">
                             <!-- /.card-header -->
                             <div class="card-header">
@@ -121,6 +121,8 @@
                             </div>
                             <!-- /.card-body -->
                         </div>
+                        @else
+                        <div class="alert alert-primary">Check again tommorow for Detailed answer submission</div>
                         @endif
                         
                     </div>

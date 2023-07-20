@@ -41,8 +41,9 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th style="width: 50%">Total Marks</th>
-                                            <th style="width: 50%">Marks Obtained</th>
+                                            <th style="width: 33%">Total Marks</th>
+                                            <th style="width: 33%">Marks Obtained</th>
+                                            <th style="width: 33%">Submitted At</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -53,6 +54,7 @@
                                             <td>
                                                 {{ $obtainedMarks }}
                                             </td>
+                                            <td>{{ \Carbon\Carbon::parse($niyamSubmission->created_at)->format('d-m-Y h:i A') }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -61,6 +63,7 @@
                     </div>
                 </div>
 
+                @if($showDetailedResult)
                 <div class="row">
                     <div class="col-12">
 
@@ -108,6 +111,10 @@
                     </div>
                     <!-- /.col -->
                 </div>
+                @else
+                    <div class="alert alert-primary">Check again tommorow for Detailed answer submission</div>
+                @endif
+                
                 <!-- /.row -->
             </div>
             <!-- /.container-fluid -->

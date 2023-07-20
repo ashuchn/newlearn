@@ -42,7 +42,11 @@
       <b>Register a new membership</b>
     </div>
     <div class="card-body">
-      <p class="login-box-msg text-danger">Asterisk(*) marked field are mandatory</p>
+      <ol class="text-danger">
+        <li>Asterisk(*) marked field are mandatory</li>
+        <li>Please do not include +91 or 0 before Mobile Number</li>
+      </ol>
+
       <form action="{{ route('register.post') }}" method="post">
         @csrf
         
@@ -81,7 +85,12 @@
             <div class="col-md-6">
               <label for="mobile">Mobile <span class="text-danger">*</span></label>
               <div class="input-group">
-                  <input type="text" name="mobile" id="mobile" class="form-control" value="{{ old('mobile') }}" placeholder="Mobile" required>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                      +91
+                  </div>
+                </div>
+                  <input type="text" name="mobile" id="mobile" maxlength="10" class="form-control" value="{{ old('mobile') }}" placeholder="Mobile" required>
                   <div class="input-group-append">
                       <div class="input-group-text">
                           <span class="fas fa-phone"></span>
@@ -120,7 +129,7 @@
                 </select>
                 <div class="input-group-append">
                     <div class="input-group-text">
-                      <i class="fa-sharp fa-light fa-location-crosshairs"></i>
+                      <i class="fas fa-map"></i>
                     </div>
                 </div>
             </div>
@@ -134,7 +143,7 @@
               <input type="text" name="city" id="" value="{{ old('city') }}" class="form-control" placeholder="City" required>
                 <div class="input-group-append">
                     <div class="input-group-text">
-                      <i class="fa-thin fa-location-pin"></i>
+                      <i class="fas fa-map"></i>
                     </div>
                 </div>
             </div>

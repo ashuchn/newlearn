@@ -26,7 +26,7 @@ class AuthController extends Controller
     {
         // return $request;
         $valid = Validator::make($request->all(),[
-            "mobile"    => "required|exists:users",
+            "mobile"    => "required|min:10|max:10|exists:users",
             "password"  => "required"
         ], [
             'required' =>':attribute is required',
@@ -58,14 +58,14 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $valid = Validator::make($request->all(),[
-            "name"          =>  "required",
-            "email"         =>  "sometimes|nullable|unique:users",
-            "mobile"        =>  "required",
-            "password"      =>  "required|min:6",
-            "state_id"      =>  "required",
+            "name"          => "required",
+            "email"         => "nullable|unique:users,email",
+            "mobile"        => "required|digits:10",
+            "password"      => "required|min:6",
+            "state_id"      => "required",
             "city"          => "required",
-            "date_of_birth" =>  "required|date_format:d/m/Y",
-            "gender"        =>  ['required',Rule::in('1','2')]
+            "date_of_birth" => "required|date_format:d/m/Y",
+            "gender"        => ['required', Rule::in(['1', '2'])]
         ]);
 
         if($valid->fails()) {
