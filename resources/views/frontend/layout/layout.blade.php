@@ -38,6 +38,15 @@
     <script src="https://kit.fontawesome.com/d977d3adb6.js" crossorigin="anonymous"></script>
 
     @yield('css')
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y9R332NLJ8"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-Y9R332NLJ8');
+    </script>
 
 </head>
 <body class="hold-transition layout-top-nav">

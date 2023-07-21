@@ -82,6 +82,11 @@
                                         </tbody>
                                     </table>
                                 </div>
+
+                                <!-- Display pagination links -->
+                                    <div class="d-flex justify-content-center mt-4">
+                                        {!! $users->links() !!}
+                                    </div>
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -99,7 +104,9 @@
     <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#example').DataTable();
+            $('#example').DataTable({
+                // paging: false
+            });
         });
     </script>
 @endsection
