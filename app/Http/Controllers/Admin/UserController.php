@@ -21,18 +21,17 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = DB::table('users as u')
+        $data = DB::table('users as u')
                 ->select('u.*', 's.name as state')
                 ->leftJoin('states as s', 's.id', '=', 'u.state_id')
                 ->where('u.role_id', '!=', 1)
-                ->paginate(50)
-                ->through(function($user){
-                    $user->gender = $user->gender == 1 ? "Male" : "Female";
-                    return $user;
+                ->get();
+
+
+        $users = $data->map(function($user) {
+                        $user->gender = $user->gender == 1 ? "Male" : "Female";
+                        return $user;
                 });
-        /**
-         * https://stackoverflow.com/questions/45903926/laravel-paginate-method-not-working-with-map-collection
-        */
         return view('backend.users.index', compact('users'));
     }
 
