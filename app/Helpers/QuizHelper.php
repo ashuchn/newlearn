@@ -166,26 +166,6 @@ class QuizHelper {
 
     public static function calculateOverallResults()
     {
-        // $userResponses = UserResponse::all();
-
-        // foreach ($userResponses as $userResponse) {
-        //     $result = Result::where('user_id', $userResponse->user_id)
-        //         ->where('quiz_id', $userResponse->quiz_id)
-        //         ->first();
-    
-        //     if (!$result) {
-        //         $marks = UserAnswer::where('user_response_id', $userResponse->id)
-        //             ->join('answers', 'user_answer.answer_id', '=', 'answers.id')
-        //             ->where('answers.is_correct', 1)
-        //             ->count();
-    
-        //         Result::create([
-        //             'user_id' => $userResponse->user_id,
-        //             'quiz_id' => $userResponse->quiz_id,
-        //             'marks' => $marks,
-        //         ]);
-        //     }
-        // }
         $results = UserResponse::join('user_answer', 'user_response.id', '=', 'user_answer.user_response_id')
         ->join('answers', 'user_answer.answer_id', '=', 'answers.id')
         ->where('answers.is_correct', 1)
@@ -223,6 +203,35 @@ class QuizHelper {
             ->get();
     
         return $toppers;
+    }
+
+    public static function generateResultByDays($days)
+    {
+        $date = \Carbon\Carbon::today()->subDays($days);
+        $quizTillDate = Quiz::where('start_date', '>=',$date)->pluck('id');
+        // return $quizTillDate;
+        // $data = DB::table('users')
+        // ->join('user_response', 'users.id', '=', 'user_response.user_id')
+        // ->join('user_answer', 'user_response.id', '=', 'user_answer.user_response_id')
+        // ->join('quizzes', 'user_response.quiz_id', '=', 'quizzes.id')
+        // ->join('questions', 'user_answer.question_id', '=', 'questions.id')
+        // ->join('answers', 'user_answer.answer_id', '=', 'answers.id')
+        // ->whereIn('quizzes.id', $quizTillDate)
+        // ->select('users.id', 'users.name', DB::raw('SUM(CASE WHEN answers.is_correct = 1 THEN 1 ELSE 0 END) as total_marks'))
+        // ->groupBy('users.id', 'users.name')
+        // ->orderByDesc('total_marks')
+        // ->get();
+        $usersWithTotalMarks = User::select('users.name', DB::raw('COUNT(CASE WHEN answers.is_correct = 1 THEN 1 ELSE 0 END) as total_marks'))
+            ->join('user_response', 'users.id', '=', 'user_response.user_id')
+            ->join('user_answer', 'user_response.id', '=', 'user_answer.user_response_id')
+            ->join('answers', 'user_answer.answer_id', '=', 'answers.id')
+            ->join('quizzes', 'user_response.quiz_id', '=', 'quizzes.id')
+            ->where('quizzes.start_date', '>=', $quizTillDate)
+            ->groupBy('users.name')
+            ->orderByDesc('total_marks')
+            ->limit(10)
+            ->get();
+
     }
 
 }

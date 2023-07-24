@@ -116,7 +116,7 @@ class QuestionAnswerController extends Controller
     public function generateReport($quizId)
     {
         $data = QuizHelper::generateReport($quizId);
-        $quiz = Quiz::find($quizId)?->quiz_name;
+        $quiz = Quiz::findOrFail($quizId)?->quiz_name;
         return view('backend.quiz.report', compact('data','quiz'));
     }
 
@@ -125,6 +125,17 @@ class QuestionAnswerController extends Controller
         $data = QuizHelper::calculateOverallResults();
         // return $data;
         return view('backend.quiz.overallResult', compact('data'));
+    }
+
+    public function generateResultByDays(int $days)
+    {
+        $validDays = [7,30,108];
+        if(!in_array($days, $validDays)){
+            flashHelper::errorResponse('Invalid Days');
+            return back();
+        }
+        $data = QuizHelper::generateResultByDays($days);
+        return $data;
     }
 
 }

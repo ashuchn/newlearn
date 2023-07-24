@@ -33,6 +33,11 @@ Route::get('/time', function(){
 Route::get('sessions', function (){
     return \Session::all();
 });
+
+Route::get('clear-session', function(){
+    return \Session::flush();
+});
+
 Route::get('contact-us',[AdminAuthController::class, 'contactUs'])->name('contact-us');
 Route::get('/', [AuthController::class, 'loginView'])->name('login');
 Route::middleware(['checkIfPaymentDone'])->group(function () {
@@ -128,6 +133,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('quiz/changePublishStatus',[QuestionAnswerController::class, 'changePublishStatus'])->name('quiz.changeStatus');
         Route::get('quiz/{quizId}/generateReport',[QuestionAnswerController::class,'generateReport'])->name('quiz.generateReport');
         Route::get('quiz/generateOverallResult', [QuestionAnswerController::class, 'calculateOverallResults'])->name('admin.calculateOverallResults');
+        Route::get('quiz/generateResult/{days}', [QuestionAnswerController::class,'generateResultByDays'])->name('admin.quiz.generateResultByDays');
 
         //niyam module
         Route::get('niyam',[niyamController::class, 'index'])->name('niyam.index');
