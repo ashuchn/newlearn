@@ -92,6 +92,12 @@
                 </a>
               </li>
               <li class="nav-item ">
+                <a href="http://103.69.44.224:8080/shajanandi/Reports.asp?RPID=1&SID=0&V1=0&V2=0&V3=0&V4=0&V5=0" target="_blank" class="nav-link text-white {{ Route::is('quiz.index') ? 'active' : '' }}">
+                  <i class="fa-solid fa-regular fa-pen-nib"></i>
+                  <p>Report</p>
+                </a>
+              </li>
+              <li class="nav-item ">
                 <a href="{{ route('niyam.index') }}" class="nav-link text-white {{ Route::is('niyam.index') ? 'active' : '' }}">
                     <i class="fa-solid fa-regular fa-hands-praying"></i>
                     <p>Niyam</p>
