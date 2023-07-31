@@ -19,6 +19,12 @@ class AuthController extends Controller
 
     public function loginView()
     {
+        if(Auth::check()) {
+            if(\Session::has('accountChoosen')) {
+                flashHelper::successResponse('Logged in successfully!');
+                return redirect()->route('accounts');      
+            }
+        }
         return view('frontend.auth.login');
     }
 
