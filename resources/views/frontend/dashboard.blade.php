@@ -42,7 +42,6 @@
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <!-- small box -->
                         <a href="http://103.69.44.224:8080/shajanandi/Top10.asp?RPID=7&SID=1&V1=1&V2=7&V3=0&V4=0&V5=0"
-                        target="_blank" 
                             class="small-box-footer">
                             <div class="info-box bg-gradient-warning">
                                 <span class="info-box-icon"><i class="fa-solid fa-ranking-star"></i></span>
@@ -98,7 +97,6 @@
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <a 
                         href="http://103.69.44.224:8080/shajanandi/ReportsU.asp?RPID=8&SID={{Auth::id()}}&V1=0&V2=0&V3=0&V4=0&V5=0" 
-                        target="_blank"
                         class="small-box-footer">
                             <div class="info-box bg-gradient-light">
                                 <span class="info-box-icon"><i class="fa-solid fa-award"></i></i></span>
